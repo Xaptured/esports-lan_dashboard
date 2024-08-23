@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ThemeProviderWrapper from '../components/theme/theme-provider';
 
 export const metadata: Metadata = {
   title: "ESports-LAN",
@@ -13,7 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ThemeProviderWrapper>
+          {children}
+        </ThemeProviderWrapper>
+      </body>
     </html>
   );
 }
