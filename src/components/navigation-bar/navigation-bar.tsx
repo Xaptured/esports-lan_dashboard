@@ -32,10 +32,13 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="sticky">
+    <AppBar
+      position="sticky"
+      sx={{ backgroundColor: theme.palette.background.default }}
+    >
       <Container
-        maxWidth="xl"
         sx={{ backgroundColor: theme.palette.background.default }}
+        maxWidth="xl"
       >
         <Toolbar disableGutters>
           <Typography

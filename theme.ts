@@ -117,7 +117,7 @@ const darkTheme = responsiveFontSizes(createTheme({
     h1: {
       fontFamily: pirataOne.style.fontFamily,
       fontSize: '5.1rem',
-      fontWeight: 700,
+      fontWeight: 500,
       lineHeight: 1.2,
       letterSpacing: '0.1rem'
     },
@@ -130,7 +130,7 @@ const darkTheme = responsiveFontSizes(createTheme({
     },
     h3: {
       fontFamily: pirataOne.style.fontFamily,
-      fontSize: '1.75rem',
+      fontSize: '2.5rem',
       fontWeight: 500,
       lineHeight: 1.4,
     },
