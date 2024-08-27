@@ -1,4 +1,4 @@
 export type CustomCardSpotlightProps = {
-    header: string;
+    header?: string;
     body: string;
 }

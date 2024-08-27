@@ -31,6 +31,7 @@ export function CustomCardSpotlight(props: CustomCardSpotlightProps) {
           textDecoration: 'none',
           color: '#b3b3b3',
           zIndex: 20,
+          whiteSpace: 'pre-line',
         }}
         className="relative z-20"
       >
