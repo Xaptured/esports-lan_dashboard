@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes  } from '@mui/material/styles';
-import {poppins, pirataOne} from './src/app/fonts'
+import {poppins, pirataOne} from './fonts'
 
 const lightTheme = responsiveFontSizes(createTheme({
   palette: {
@@ -40,9 +40,10 @@ const lightTheme = responsiveFontSizes(createTheme({
     },
     h3: {
       fontFamily: pirataOne.style.fontFamily,
-      fontSize: '1.75rem',
+      fontSize: '2.5rem',
       fontWeight: 500,
       lineHeight: 1.4,
+      letterSpacing: '0.1rem'
     },
     h4: {
       fontFamily: pirataOne.style.fontFamily,
@@ -133,6 +134,7 @@ const darkTheme = responsiveFontSizes(createTheme({
       fontSize: '2.5rem',
       fontWeight: 500,
       lineHeight: 1.4,
+      letterSpacing: '0.1rem'
     },
     h4: {
       fontFamily: pirataOne.style.fontFamily,
