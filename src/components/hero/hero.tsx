@@ -55,6 +55,7 @@ export default function Hero() {
             size="large"
             icon={true}
             rightIcon={<SendIcon />}
+            buttonType="button"
           />
         </Container>
       </Container>
