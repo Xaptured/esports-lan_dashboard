@@ -5,11 +5,11 @@ import { CustomButtonProps } from '@/types/CustomButtonProps';
 
 export default function CenterButton(props: CustomButtonProps) {
   const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-    paddingLeft: props.padding?.left || '2%',
-    paddingTop: props.padding?.top || '1.5%',
-    paddingRight: props.padding?.right || '2%',
-    paddingBottom: props.padding?.bottom || '1.5%',
-    fontSize: props.fontSize || '14px',
+    paddingLeft: `${props.padding?.left}%` || '2%',
+    paddingTop: `${props.padding?.top}%` || '1.5%',
+    paddingRight: `${props.padding?.right}%` || '2%',
+    paddingBottom: `${props.padding?.bottom}%` || '1.5%',
+    fontSize: `${props.fontSize}px` || '14px',
     backgroundColor: props.backgroundColor || theme.palette.primary.main,
     borderRadius: props.radius || 25,
     '&:hover': {
@@ -34,6 +34,8 @@ export default function CenterButton(props: CustomButtonProps) {
               variant="contained"
               startIcon={props.leftIcon}
               size={props.size}
+              className={props.styleString}
+              type={props.buttonType}
             >
               {props.buttonText}
             </ColorButton>
@@ -42,13 +44,20 @@ export default function CenterButton(props: CustomButtonProps) {
               variant="contained"
               endIcon={props.rightIcon}
               size={props.size}
+              className={props.styleString}
+              type={props.buttonType}
             >
               {props.buttonText}
             </ColorButton>
           )}
         </>
       ) : (
-        <ColorButton variant="contained" size={props.size}>
+        <ColorButton
+          variant="contained"
+          size={props.size}
+          className={props.styleString}
+          type={props.buttonType}
+        >
           {props.buttonText}
         </ColorButton>
       )}

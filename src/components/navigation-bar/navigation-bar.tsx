@@ -38,7 +38,7 @@ function ResponsiveAppBar() {
     >
       <Container
         sx={{ backgroundColor: theme.palette.background.default }}
-        maxWidth="xl"
+        maxWidth="2xl"
       >
         <Toolbar disableGutters>
           <Typography
