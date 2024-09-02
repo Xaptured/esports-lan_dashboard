@@ -1,5 +1,6 @@
 type BasicCustomButtonProps = {
-    size: 'small' | 'medium' | 'large';
+  size: 'small' | 'medium' | 'large';
+  buttonType: 'button' | 'submit' | 'reset';
     buttonText: string;
     margin?: {
         top: number;
@@ -14,7 +15,8 @@ type BasicCustomButtonProps = {
     fontSize?: string;
     radius?: number;
     backgroundColor?: string;
-    hoverBackgroundColor?: string;
+  hoverBackgroundColor?: string;
+  styleString?: string;
 }
 
 type IconOptions = BasicCustomButtonProps & {
