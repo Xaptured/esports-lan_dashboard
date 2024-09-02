@@ -1,4 +1,5 @@
 import AboutUs from '@/components/about-us/about-us';
+import Footer from '@/components/footer/footer';
 import Hero from '@/components/hero/hero';
 import LandingForms from '@/components/landing-forms/landing-forms';
 import NavigationBar from '@/components/navigation-bar/navigation-bar';
@@ -14,6 +15,7 @@ export default function Home() {
       <Users />
       <Partners />
       <LandingForms />
+      <Footer />
     </>
   );
 }
