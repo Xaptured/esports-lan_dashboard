@@ -17,6 +17,7 @@ type BasicCustomButtonProps = {
     backgroundColor?: string;
   hoverBackgroundColor?: string;
   styleString?: string;
+  handleClick?: () => void;
 }
 
 type IconOptions = BasicCustomButtonProps & {

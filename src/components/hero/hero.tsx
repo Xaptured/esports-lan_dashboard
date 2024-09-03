@@ -5,9 +5,15 @@ import React from 'react';
 import { SparklesPreview } from './sparkles-preview';
 import SendIcon from '@mui/icons-material/Send';
 import CenterButton from '../button/center-button';
+import { HeroProps } from '@/types/HeroProps';
 
-export default function Hero() {
+export default function Hero(props: HeroProps) {
   const theme = useTheme();
+  const scrollToSection = (currentRef: React.MutableRefObject<any>) => {
+    if (currentRef && currentRef.current) {
+      currentRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <Box>
       <Container maxWidth="lg" sx={{ mb: 2, mt: 22 }}>
@@ -56,6 +62,7 @@ export default function Hero() {
             icon={true}
             rightIcon={<SendIcon />}
             buttonType="button"
+            handleClick={() => scrollToSection(props.formsRef)}
           />
         </Container>
       </Container>

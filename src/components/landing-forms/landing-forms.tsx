@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { LandingForm } from './landing-form';
+import Link from 'next/link';
 
 export default function LandingForms() {
   const theme = useTheme();
@@ -20,6 +21,7 @@ export default function LandingForms() {
     theme.palette.mode === 'dark'
       ? 'bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'
       : 'bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,white)]';
+  const gradientTheme = theme.palette.mode === 'dark' ? 'to-black' : 'to-white';
   return (
     <Box
       className={`h-auto w-full ${gridTheme} relative flex items-center justify-center`}
@@ -124,6 +126,9 @@ export default function LandingForms() {
           </Grid>
         </Grid>
       </Container>
+      <Box
+        className={`absolute w-full bottom-0 inset-x-0 h-20 bg-gradient-to-b pointer-events-none select-none from-transparent ${gradientTheme}`}
+      />
     </Box>
   );
 }
