@@ -107,8 +107,8 @@ function ResponsiveAppBar(props: ResponsiveAppBarProps) {
                 color: theme.palette.text.primary,
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              {pages.map((page, index) => (
+                <MenuItem key={page} onClick={() => handleClickNavItem(index)}>
                   <Typography
                     variant="body2"
                     textAlign="center"
@@ -135,7 +135,13 @@ function ResponsiveAppBar(props: ResponsiveAppBarProps) {
           >
             ESports-LAN
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'center',
+            }}
+          >
             {pages.map((page, index) => (
               <Button
                 variant="text"
