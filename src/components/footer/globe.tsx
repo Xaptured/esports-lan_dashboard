@@ -2,12 +2,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
+import { Typography, useTheme } from '@mui/material';
 
 const World = dynamic(() => import('../ui/globe').then((m) => m.World), {
   ssr: false,
+  loading: () => <p>Loading...</p>,
 });
 
 export function Globe() {
+  const theme = useTheme();
+  const backgroundTheme =
+    theme.palette.mode === 'dark' ? 'bg-black' : 'bg-white';
+  const gradientTheme = theme.palette.mode === 'dark' ? 'to-black' : 'to-white';
   const globeConfig = {
     pointSize: 4,
     globeColor: '#062056',
@@ -395,8 +401,10 @@ export function Globe() {
   ];
 
   return (
-    <div className="flex flex-row items-center justify-center  h-auto dark:bg-black bg-white relative w-full">
-      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4">
+    <div
+      className={`flex flex-row items-center justify-center h-auto ${backgroundTheme} relative w-full`}
+    >
+      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] sm:h-full px-2">
         <motion.div
           initial={{
             opacity: 0,
@@ -411,16 +419,35 @@ export function Globe() {
           }}
           className="div"
         >
-          <h2 className="text-center text-xl md:text-4xl font-bold text-black dark:text-white">
+          <Typography
+            variant="h2"
+            align="center"
+            gutterBottom={false}
+            noWrap={false}
+            sx={{
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
             Connecting gamers worldwide
-          </h2>
-          <p className="text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
-            This globe is interactive and customizable. Have fun with it, and
-            don&apos;t forget to share it.
-          </p>
+          </Typography>
+          <Typography
+            variant="body1"
+            align="center"
+            gutterBottom={false}
+            noWrap={false}
+            sx={{
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Be a part of this community and increase the boundaries of gaming.
+          </Typography>
         </motion.div>
-        <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
-        <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
+        <div
+          className={`absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent ${gradientTheme} z-40`}
+        />
+        <div className="absolute w-full -bottom-20 h-72 md:h-full sm:-h-full z-10">
           <World data={sampleArcs} globeConfig={globeConfig} />
         </div>
       </div>

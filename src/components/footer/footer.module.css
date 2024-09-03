@@ -1,0 +1,11 @@
+.connectMe {
+  box-shadow: 0px 0px 61px -11px rgba(133, 133, 133, 1);
+}
+
+.icon {
+  transition: transform 0.2s ease;
+}
+
+.icon:hover {
+  transform: scale(1.2);
+}

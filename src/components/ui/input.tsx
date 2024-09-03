@@ -5,7 +5,7 @@ import { useMotionTemplate, useMotionValue, motion } from 'framer-motion';
 import TextField from '@mui/material/TextField';
 import { CustomInputProps } from '@/types/CustomInputProps';
 import { Controller } from 'react-hook-form';
-import { CredentialsType } from '@/schemas/credentials';
+import { useTheme } from '@mui/material';
 
 const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
   ({
@@ -18,6 +18,11 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
     name,
     control,
   }) => {
+    const theme = useTheme();
+    const inputTheme =
+      theme.palette.mode === 'dark'
+        ? 'bg-zinc-800 text-white placeholder-text-neutral-600 focus-visible:ring-neutral-600 shadow-[0px_0px_1px_1px_var(--neutral-700)]'
+        : 'bg-gray-50 text-white placeholder:text-neutral-400 focus-visible:ring-neutral-400';
     const radius = 200;
     const [visible, setVisible] = React.useState(false);
 
@@ -62,11 +67,11 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
               placeholder={placeholder}
               {...field}
               className={cn(
-                `flex h-13 w-full border-none bg-gray-50 dark:bg-zinc-800 text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm file:border-0 file:bg-transparent
-                file:text-sm file:font-medium placeholder:text-neutral-400 dark:placeholder-text-neutral-600
-                focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600
-                disabled:cursor-not-allowed disabled:opacity-50 dark:shadow-[0px_0px_1px_1px_var(--neutral-700)]
-                group-hover/input:shadow-none transition duration-400`,
+                `flex h-13 w-full border-none shadow-input rounded-md px-3 py-2 text-sm file:border-0 file:bg-transparent
+                file:text-sm file:font-medium 
+                focus-visible:outline-none focus-visible:ring-[2px]
+                disabled:cursor-not-allowed disabled:opacity-50
+                group-hover/input:shadow-none transition duration-400 ${inputTheme}`,
                 className
               )}
               variant="standard"

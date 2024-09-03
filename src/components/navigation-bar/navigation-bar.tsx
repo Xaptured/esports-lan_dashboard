@@ -14,10 +14,11 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ThemeButton from '../theme/theme-button';
 import { useTheme } from '@mui/material';
+import { ResponsiveAppBarProps } from '@/types/ResponsiveAppBarProps';
 
-const pages = ['Home', 'About Us', 'Users', 'Partners', 'Login'];
+const pages = ['Home', 'About Us', 'Users', 'Partners', 'Login', 'Connect'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(props: ResponsiveAppBarProps) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -29,6 +30,25 @@ function ResponsiveAppBar() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const scrollToSection = (ref: React.MutableRefObject<any>) => {
+    if (ref && ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleClickNavItem = (index: number) => {
+    if (index === 0)
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    if (index === 1) scrollToSection(props.aboutUsRef);
+    if (index === 2) scrollToSection(props.usersRef);
+    if (index === 3) scrollToSection(props.partnersRef);
+    if (index === 4) scrollToSection(props.formsRef);
+    if (index === 5) scrollToSection(props.connectRef);
   };
 
   return (
@@ -117,11 +137,11 @@ function ResponsiveAppBar() {
             ESports-LAN
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Button
                 variant="text"
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleClickNavItem(index)}
                 sx={{
                   my: 2,
                   color: theme.palette.text.primary,

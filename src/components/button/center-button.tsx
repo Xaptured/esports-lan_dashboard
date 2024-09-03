@@ -36,6 +36,7 @@ export default function CenterButton(props: CustomButtonProps) {
               size={props.size}
               className={props.styleString}
               type={props.buttonType}
+              onClick={props.handleClick}
             >
               {props.buttonText}
             </ColorButton>
@@ -46,6 +47,7 @@ export default function CenterButton(props: CustomButtonProps) {
               size={props.size}
               className={props.styleString}
               type={props.buttonType}
+              onClick={props.handleClick}
             >
               {props.buttonText}
             </ColorButton>
@@ -57,6 +59,7 @@ export default function CenterButton(props: CustomButtonProps) {
           size={props.size}
           className={props.styleString}
           type={props.buttonType}
+          onClick={props.handleClick}
         >
           {props.buttonText}
         </ColorButton>
