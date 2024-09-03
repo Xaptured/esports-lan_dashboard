@@ -67,7 +67,6 @@ function ResponsiveAppBar(props: ResponsiveAppBarProps) {
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              mr: 44,
               display: { xs: 'none', md: 'flex' },
               color: theme.palette.text.primary,
               textDecoration: 'none',

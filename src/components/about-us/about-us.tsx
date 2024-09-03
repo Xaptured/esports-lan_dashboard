@@ -29,7 +29,8 @@ export default function AboutUs() {
           justifyContent="center"
           alignItems="center"
           sx={{
-            padding: '4%',
+            padding: '2%',
+            marginTop: '0%',
           }}
         >
           <Grid item xl={2} lg={2}></Grid>

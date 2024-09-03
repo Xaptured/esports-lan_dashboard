@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { Typography, useTheme } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 
 const World = dynamic(() => import('../ui/globe').then((m) => m.World), {
   ssr: false,
@@ -401,10 +401,10 @@ export function Globe() {
   ];
 
   return (
-    <div
+    <Box
       className={`flex flex-row items-center justify-center h-auto ${backgroundTheme} relative w-full`}
     >
-      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] sm:h-full px-2">
+      <Box className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] sm:h-full px-2">
         <motion.div
           initial={{
             opacity: 0,
@@ -444,13 +444,13 @@ export function Globe() {
             Be a part of this community and increase the boundaries of gaming.
           </Typography>
         </motion.div>
-        <div
+        <Box
           className={`absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent ${gradientTheme} z-40`}
         />
-        <div className="absolute w-full -bottom-20 h-72 md:h-full sm:-h-full z-10">
+        <Box className="absolute w-full -bottom-20 h-72 md:h-full sm:-h-full z-10">
           <World data={sampleArcs} globeConfig={globeConfig} />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 }

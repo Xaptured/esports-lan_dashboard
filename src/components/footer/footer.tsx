@@ -31,12 +31,9 @@ export default function Footer() {
       : 'bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,white)]';
   return (
     <Box className={`h-auto w-full`}>
-      <Box
-        className={`absolute pointer-events-none inset-0 flex items-center justify-center ${radialTheme} [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]`}
-      ></Box>
       <Box>
         <Grid container spacing={6} sx={{ padding: '4%' }}>
-          <Grid item xl={5} lg={5} md={5} sm={3} xs={12}>
+          <Grid item xl={5} lg={5} md={5} sm={12} xs={12}>
             <Typography variant="h2" align="center" noWrap={false}>
               Connect with me
             </Typography>
@@ -51,7 +48,7 @@ export default function Footer() {
             >
               <Box
                 display="flex"
-                justifyContent="center"
+                justifyContent="space-between"
                 alignItems="center"
                 gap={5}
               >
@@ -77,7 +74,7 @@ export default function Footer() {
               </Box>
               <Box
                 display="flex"
-                justifyContent="center"
+                justifyContent="space-between"
                 alignItems="center"
                 gap={5}
               >
@@ -103,7 +100,7 @@ export default function Footer() {
               </Box>
               <Box
                 display="flex"
-                justifyContent="center"
+                justifyContent="space-between"
                 alignItems="center"
                 gap={5}
               >
@@ -129,7 +126,7 @@ export default function Footer() {
               </Box>
               <Box
                 display="flex"
-                justifyContent="center"
+                justifyContent="space-between"
                 alignItems="center"
                 gap={5}
               >
@@ -155,7 +152,7 @@ export default function Footer() {
               </Box>
               <Box
                 display="flex"
-                justifyContent="center"
+                justifyContent="space-between"
                 alignItems="center"
                 gap={5}
               >
@@ -186,15 +183,16 @@ export default function Footer() {
             xl={7}
             lg={7}
             md={7}
-            sm={9}
             sx={{
               display: {
                 xs: 'none', // Hide on extra-small screens
-                sm: 'block', // Show on small screens and larger
+                sm: 'none',
+                md: 'block', // Show on small screens and larger
+                lg: 'block',
               },
             }}
           >
-            {/* <Globe /> */}
+            <Globe />
           </Grid>
         </Grid>
       </Box>
@@ -216,7 +214,7 @@ export default function Footer() {
             className="copyright_icon"
             style={{ marginRight: '1%', marginTop: '0.5%' }}
           />
-          Copyright 2024. All rights reserved by xaptured. Created by Jack with
+          Copyright 2024. All rights reserved by Xaptured. Created by Jack with
           Love.
         </Typography>
       </Container>

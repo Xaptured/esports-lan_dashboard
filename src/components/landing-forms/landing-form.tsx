@@ -81,7 +81,7 @@ export function LandingForm(props: LandingFormProps) {
         </LabelInputContainer>
         <CenterButton
           buttonType="submit"
-          buttonText="Get Started"
+          buttonText={props.buttonText}
           size="large"
           styleString="w-full"
           icon={false}

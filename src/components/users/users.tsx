@@ -23,7 +23,7 @@ export default function Users() {
         className={`absolute pointer-events-none inset-0 flex items-center justify-center ${radialTheme} [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]`}
       ></Box>
       <Box>
-        <Grid container spacing={6} sx={{ padding: '4%' }}>
+        <Grid container spacing={6} sx={{ padding: '2%', marginTop: '2%' }}>
           <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
             <CustomUsersIcon flexPosition="end" tagLine="PARTICIPANT" />
           </Grid>

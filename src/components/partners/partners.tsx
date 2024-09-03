@@ -32,7 +32,7 @@ export default function Partners() {
             color: theme.palette.text.primary,
             textDecoration: 'none',
             zIndex: 20,
-            marginTop: '8%',
+            marginTop: '4%',
             position: 'relative',
           }}
         >
