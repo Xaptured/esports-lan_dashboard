@@ -1,35 +1,36 @@
 type BasicCustomButtonProps = {
   size: 'small' | 'medium' | 'large';
   buttonType: 'button' | 'submit' | 'reset';
-    buttonText: string;
-    margin?: {
-        top: number;
-        bottom: number;
-    }
-    padding?: {
-        top: number;
-        bottom: number;
-        left: number;
-        right: number;
-    }
-    fontSize?: string;
-    radius?: number;
-    backgroundColor?: string;
+  buttonText: string;
+  margin?: {
+    top: number;
+    bottom: number;
+  };
+  padding?: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  };
+  fontSize?: string;
+  radius?: number;
+  backgroundColor?: string;
   hoverBackgroundColor?: string;
   styleString?: string;
   handleClick?: () => void;
-}
+  isLoading?: boolean;
+};
 
 type IconOptions = BasicCustomButtonProps & {
   icon: true;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
 } & (
-  | { leftIcon: React.ReactNode; rightIcon?: never }
-  | { leftIcon?: never; rightIcon: React.ReactNode }
-);
+    | { leftIcon: React.ReactNode; rightIcon?: never }
+    | { leftIcon?: never; rightIcon: React.ReactNode }
+  );
 
-type NoIconOptions = BasicCustomButtonProps &{
+type NoIconOptions = BasicCustomButtonProps & {
   icon: false;
   leftIcon?: never;
   rightIcon?: never;

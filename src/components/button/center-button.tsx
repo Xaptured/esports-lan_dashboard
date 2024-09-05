@@ -1,6 +1,12 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import { Button, Container, ButtonProps } from '@mui/material';
+import {
+  Button,
+  Container,
+  ButtonProps,
+  CircularProgress,
+  Box,
+} from '@mui/material';
 import { CustomButtonProps } from '@/types/CustomButtonProps';
 
 export default function CenterButton(props: CustomButtonProps) {
@@ -27,23 +33,41 @@ export default function CenterButton(props: CustomButtonProps) {
         alignItems: 'center',
       }}
     >
-      {props.icon ? (
+      {props.isLoading ? (
+        <Box sx={{ height: '48.17px' }}>
+          <CircularProgress />
+        </Box>
+      ) : (
         <>
-          {props.leftIcon ? (
-            <ColorButton
-              variant="contained"
-              startIcon={props.leftIcon}
-              size={props.size}
-              className={props.styleString}
-              type={props.buttonType}
-              onClick={props.handleClick}
-            >
-              {props.buttonText}
-            </ColorButton>
+          {props.icon ? (
+            <>
+              {props.leftIcon ? (
+                <ColorButton
+                  variant="contained"
+                  startIcon={props.leftIcon}
+                  size={props.size}
+                  className={props.styleString}
+                  type={props.buttonType}
+                  onClick={props.handleClick}
+                >
+                  {props.buttonText}
+                </ColorButton>
+              ) : (
+                <ColorButton
+                  variant="contained"
+                  endIcon={props.rightIcon}
+                  size={props.size}
+                  className={props.styleString}
+                  type={props.buttonType}
+                  onClick={props.handleClick}
+                >
+                  {props.buttonText}
+                </ColorButton>
+              )}
+            </>
           ) : (
             <ColorButton
               variant="contained"
-              endIcon={props.rightIcon}
               size={props.size}
               className={props.styleString}
               type={props.buttonType}
@@ -53,16 +77,6 @@ export default function CenterButton(props: CustomButtonProps) {
             </ColorButton>
           )}
         </>
-      ) : (
-        <ColorButton
-          variant="contained"
-          size={props.size}
-          className={props.styleString}
-          type={props.buttonType}
-          onClick={props.handleClick}
-        >
-          {props.buttonText}
-        </ColorButton>
       )}
     </Container>
   );

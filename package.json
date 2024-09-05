@@ -22,6 +22,7 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.5.0",
     "@types/three": "^0.167.2",
+    "axios": "^1.7.7",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.31",
     "jotai": "^2.9.3",
@@ -35,6 +36,7 @@
     "tailwind-merge": "^2.5.2",
     "three": "^0.167.1",
     "three-globe": "^2.31.1",
+    "winston": "^3.14.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
