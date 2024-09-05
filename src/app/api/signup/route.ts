@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     const jsonRequest = await request.json();
     const payload = {
       ...jsonRequest,
-      role: 'PARTICIPANT', // TODO: need to change it to AUDIENCE from backedn
+      role: 'AUDIENCE',
     };
     const registerResponse = await axios.post(
       'http://localhost:8086/identity/register',
