@@ -49,7 +49,7 @@ export default function LandingForms() {
           justifyContent="center"
           alignItems="center"
           sx={{
-            padding: '6%',
+            padding: '3%',
           }}
         >
           <Grid item xl={6} lg={6}>
@@ -85,7 +85,7 @@ export default function LandingForms() {
                 Then login directly!
               </Typography>
               <Box className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent mt-8 h-[1px] w-full" />
-              <LandingForm buttonText="Login" />
+              <LandingForm buttonText="Login" isRegister={false} />
             </Paper>
           </Grid>
           <Grid item xl={6} lg={6}>
@@ -121,7 +121,7 @@ export default function LandingForms() {
                 Register here as audience to support your team at LAN.
               </Typography>
               <Box className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent mt-8 h-[1px] w-full" />
-              <LandingForm buttonText="Sign Up" />
+              <LandingForm buttonText="Sign Up" isRegister={true} />
             </Paper>
           </Grid>
         </Grid>

@@ -9,22 +9,49 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { credentialSchema, CredentialsType } from '@/schemas/credentials';
 import { zodResolver } from '@hookform/resolvers/zod';
 import CenterButton from '../button/center-button';
+import { loginUser, registerUser } from '@/utilities/postInternalAPI';
+import { useSetAtom } from 'jotai/react';
+import { snackBarAtom, snackBarMessageAtom } from '@/atoms/primitive';
 
 export function LandingForm(props: LandingFormProps) {
   const theme = useTheme();
-  const buttonTheme =
-    theme.palette.mode === 'dark'
-      ? 'from-zinc-900 to-zinc-900 bg-zinc-800 shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]'
-      : ' bg-gradient-to-br from-black to-neutral-600 shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]';
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const setSnackBar = useSetAtom(snackBarAtom);
+  const setSnackBarMessage = useSetAtom(snackBarMessageAtom);
   const {
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<CredentialsType>({
     resolver: zodResolver(credentialSchema),
   });
 
-  const handler: SubmitHandler<CredentialsType> = (data) => console.log(data);
+  const handler: SubmitHandler<CredentialsType> = async (data) => {
+    if (props.isRegister) {
+      setLoading(true);
+      const response = await registerUser(data);
+      setLoading(false);
+      setSnackBar(true);
+      if (response.message) {
+        // TODO: create custom hook or something to reset the fields
+        setValue('email', '');
+        setValue('password', '');
+        setSnackBarMessage(response.message);
+      } else if (response.errorMessage)
+        setSnackBarMessage(response.errorMessage);
+    } else {
+      setLoading(true);
+      const response = await loginUser(data);
+      setLoading(false);
+      if (response.data) {
+        // TODO: router.push to respective home page
+      } else if (response.errorMessage) {
+        setSnackBar(true);
+        setSnackBarMessage(response.errorMessage);
+      }
+    }
+  };
 
   return (
     <Box className="max-w-md w-full mx-auto  p-4 md:p-8 ">
@@ -87,14 +114,8 @@ export function LandingForm(props: LandingFormProps) {
           icon={false}
           padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
           fontSize="16"
+          isLoading={loading}
         />
-        {/* <button
-          className={`relative group/btn block w-full text-white rounded-md h-12 font-medium ${buttonTheme}`}
-          type="submit"
-        >
-          {props.buttonText}
-          <BottomGradient />
-        </button> */}
       </form>
     </Box>
   );
