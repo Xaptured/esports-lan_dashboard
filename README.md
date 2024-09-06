@@ -1,3 +1,11 @@
+# ESports-LAN
+
+### This is an event management app specially designed for LAN ESports.
+
+[![Build and Test React Application](https://github.com/Xaptured/esports-lan_dashboard/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/Xaptured/esports-lan_dashboard/actions/workflows/build-and-test.yml)
+
+[![Dependabot Updates](https://github.com/Xaptured/esports-lan_dashboard/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/Xaptured/esports-lan_dashboard/actions/workflows/dependabot/dependabot-updates)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
