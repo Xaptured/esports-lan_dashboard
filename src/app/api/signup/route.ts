@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 import logger from '@/utilities/logger';
+import { domainProvider } from '@/utilities/utils';
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,14 +10,14 @@ export async function POST(request: NextRequest) {
       ...jsonRequest,
       role: 'AUDIENCE',
     };
-    const registerResponse = await axios.post(
-      'http://localhost:8086/identity/register',
-      payload
+    const registrationUrl = domainProvider('identity/register');
+    const registerResponse = await axios.post(registrationUrl, payload);
+    const emailVerificationUrl = domainProvider(
+      'email/send-verification-email'
     );
-    const emailResponse = await axios.post(
-      'http://localhost:8086/email/send-verification-email',
-      { clientEmail: registerResponse.data.email }
-    );
+    const emailResponse = await axios.post(emailVerificationUrl, {
+      clientEmail: registerResponse.data.email,
+    });
     return NextResponse.json({ data: emailResponse.data }, { status: 200 });
   } catch (error) {
     if (axios.isAxiosError(error)) {

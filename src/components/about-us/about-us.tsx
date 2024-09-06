@@ -1,9 +1,8 @@
 'use client';
 
-import { Box, Grid, useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import React from 'react';
-import { CustomCardSpotlight } from './custom-card-spotlight';
-import { ABOUT_US_CONTENT } from '@/constants/about-us-content';
+import AboutUsContent from './about-us-content';
 
 export default function AboutUs() {
   const theme = useTheme();
@@ -22,36 +21,7 @@ export default function AboutUs() {
       <Box
         className={`absolute pointer-events-none inset-0 flex items-center justify-center ${radialTheme} [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]`}
       ></Box>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid
-          container
-          spacing={12}
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            padding: '2%',
-            marginTop: '0%',
-          }}
-        >
-          <Grid item xl={2} lg={2}></Grid>
-          <Grid item xl={8} lg={8}>
-            <CustomCardSpotlight
-              header={ABOUT_US_CONTENT[0].head}
-              body={ABOUT_US_CONTENT[0].body}
-            />
-          </Grid>
-          <Grid item xl={2} lg={2}></Grid>
-          {ABOUT_US_CONTENT.slice(1).map((content, index) => (
-            <Grid item xl={4} lg={4}>
-              <CustomCardSpotlight
-                header={content.head}
-                body={content.body}
-                key={index}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <AboutUsContent />
     </Box>
   );
 }

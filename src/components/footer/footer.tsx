@@ -1,13 +1,4 @@
-'use client';
-
-import {
-  Box,
-  Grid,
-  Typography,
-  useTheme,
-  Container,
-  Paper,
-} from '@mui/material';
+import { Box, Grid, Typography, Container, Paper } from '@mui/material';
 import React from 'react';
 import { Globe } from './globe';
 import Link from 'next/link';
@@ -20,15 +11,9 @@ import {
 } from 'react-icons/fa';
 import { IoIosMail } from 'react-icons/io';
 import styles from './footer.module.css';
-
-const ICON_SIZE = 60;
+import { ICON_SIZE } from '@/constants/configuration-constannts';
 
 export default function Footer() {
-  const theme = useTheme();
-  const radialTheme =
-    theme.palette.mode === 'dark'
-      ? 'bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'
-      : 'bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,white)]';
   return (
     <Box className={`h-auto w-full`}>
       <Box>

@@ -1,9 +1,7 @@
 'use client';
-import { Box, Grid, useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import React from 'react';
-import CustomUsersIcon from './custom-users-icon';
-import { CustomCardSpotlight } from '../about-us/custom-card-spotlight';
-import { AUDIENCE, ORGANIZER, PARTICPANT } from '@/constants/users-content';
+import UsersContent from './users-content';
 
 export default function Users() {
   const theme = useTheme();
@@ -22,32 +20,7 @@ export default function Users() {
       <Box
         className={`absolute pointer-events-none inset-0 flex items-center justify-center ${radialTheme} [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]`}
       ></Box>
-      <Box>
-        <Grid container spacing={6} sx={{ padding: '2%', marginTop: '2%' }}>
-          <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-            <CustomUsersIcon flexPosition="end" tagLine="PARTICIPANT" />
-          </Grid>
-          <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
-            <CustomCardSpotlight body={PARTICPANT} />
-          </Grid>
-          <Grid item xl={1} lg={1} md={1} sm={0} xs={0} />
-
-          <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-            <CustomUsersIcon flexPosition="end" tagLine="ORGANIZER" />
-          </Grid>
-          <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
-            <CustomCardSpotlight body={ORGANIZER} />
-          </Grid>
-          <Grid item xl={1} lg={1} md={1} sm={0} xs={0} />
-          <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-            <CustomUsersIcon flexPosition="end" tagLine="AUDIENCE" />
-          </Grid>
-          <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
-            <CustomCardSpotlight body={AUDIENCE} />
-          </Grid>
-          <Grid item xl={1} lg={1} md={1} sm={0} xs={0} />
-        </Grid>
-      </Box>
+      <UsersContent />
     </Box>
   );
 }

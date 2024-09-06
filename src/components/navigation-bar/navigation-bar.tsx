@@ -15,8 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ThemeButton from '../theme/theme-button';
 import { useTheme } from '@mui/material';
 import { ResponsiveAppBarProps } from '@/types/ResponsiveAppBarProps';
-
-const pages = ['Home', 'About Us', 'Users', 'Partners', 'Login', 'Connect'];
+import { pages } from '@/constants/configuration-constannts';
 
 function ResponsiveAppBar(props: ResponsiveAppBarProps) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
