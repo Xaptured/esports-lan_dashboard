@@ -1,12 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
-import logger from "@/utilities/logger";
+import logger from '@/utilities/logger';
+import { domainProvider } from '@/utilities/utils';
 
 export async function POST(request: NextRequest) {
   try {
     const jsonRequest = await request.json();
-    const loginResponse = await axios.post('http://localhost:8086/identity/token', jsonRequest);
-    return NextResponse.json({ data: loginResponse.data }, {status: 200});          
+    const url = domainProvider('identity/token');
+    const loginResponse = await axios.post(url, jsonRequest);
+    return NextResponse.json({ data: loginResponse.data }, { status: 200 });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       logger.error(`Error occurred while login process.`);
@@ -18,15 +20,10 @@ export async function POST(request: NextRequest) {
         },
         { status: statusCode }
       );
-    } 
-    else {
+    } else {
       const err = error as Error;
       logger.error(`Error occurred while login process.`);
-      return NextResponse.json(
-          { error: err.message },
-          { status: 500 }
-      );
-      
+      return NextResponse.json({ error: err.message }, { status: 500 });
     }
   }
 }

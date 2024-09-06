@@ -26,7 +26,6 @@ export const registerUser = async (userCredential: CredentialsType) => {
           errorMessage: 'Something went wromg. Please try again later.',
         } as Response;
     } else {
-      console.log('else');
       return {
         data: undefined,
         message: undefined,

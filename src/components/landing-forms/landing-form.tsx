@@ -9,7 +9,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { credentialSchema, CredentialsType } from '@/schemas/credentials';
 import { zodResolver } from '@hookform/resolvers/zod';
 import CenterButton from '../button/center-button';
-import { loginUser, registerUser } from '@/utilities/postInternalAPI';
+import { loginUser, registerUser } from '@/services/postInternalAPI';
 import { useSetAtom } from 'jotai/react';
 import { snackBarAtom, snackBarMessageAtom } from '@/atoms/primitive';
 
