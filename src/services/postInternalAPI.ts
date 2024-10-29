@@ -37,9 +37,16 @@ export const registerUser = async (userCredential: CredentialsType) => {
 
 export const loginUser = async (userCredential: CredentialsType) => {
   try {
-    const { data } = await axios.post('/api/login', userCredential);
+    const response = await axios.post('/api/login', userCredential);
+    sessionStorage.setItem(
+      'access-token',
+      response.headers.get('access-token')
+    );
+    sessionStorage.setItem('access-token', response.headers.get('role'));
+    sessionStorage.setItem('email', response.data.email);
+
     return {
-      data: data,
+      data: response.data,
       message: undefined,
       errorMessage: undefined,
     } as Response;

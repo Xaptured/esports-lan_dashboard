@@ -1,4 +1,4 @@
-export const localDomain = 'http://localhost:3000/';
+export const localDomain = 'http://localhost:8086/';
 export const pages = [
   'Home',
   'About Us',
@@ -7,4 +7,5 @@ export const pages = [
   'Login',
   'Connect',
 ];
+export const organizerTabs = ['Home', 'Bookings', 'Check-in', 'Help'];
 export const ICON_SIZE = 60;

@@ -1,15 +1,23 @@
-import { Box, useTheme } from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 import { SparklesPreview } from './sparkles-preview';
 import { HeroProps } from '@/types/HeroProps';
 import HeroContent from './hero-content';
 
-export default function Hero(props: HeroProps) {
-  const theme = useTheme();
-
+export default function Hero({
+  navigationRef,
+  headingContent,
+  bodyOne,
+  bodyTwo,
+}: HeroProps) {
   return (
     <Box>
-      <HeroContent formsRef={props.formsRef} />
+      <HeroContent
+        navigationRef={navigationRef}
+        headingContent={headingContent}
+        bodyOne={bodyOne}
+        bodyTwo={bodyTwo}
+      />
       <SparklesPreview />
     </Box>
   );

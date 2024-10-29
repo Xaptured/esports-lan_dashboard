@@ -1,0 +1,6 @@
+export enum ROLE {
+  PARTICIPANT,
+  ORGANIZER,
+  ADMIN,
+  AUDIENCE,
+}
