@@ -36,7 +36,9 @@ export const registerUser = async (userCredential: CredentialsType) => {
   }
 };
 
-export const loginUser = async (userCredential: CredentialsType) => {
+export const loginUser = async (
+  userCredential: CredentialsType
+): Promise<Response> => {
   try {
     const response = await axios.post<any, CustomAxiosResponse>(
       '/api/login',
