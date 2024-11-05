@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Label } from '../ui/label';
-import { CustomInput } from '../ui/input';
+import { CustomInput } from '../ui/custom-input';
 import { cn } from '../../utilities/utils';
 import { Box, Typography, useTheme } from '@mui/material';
 import { LandingFormProps } from '@/types/LandingFormProps';
@@ -56,18 +56,16 @@ export function LandingForm(props: LandingFormProps) {
       } else if (response.errorMessage)
         setSnackBarMessage(response.errorMessage);
     } else {
-      //  TODO: uncomment below code
       setLoading(true);
-      // const response = await loginUser(data);
+      const response = await loginUser(data);
       setLoading(false);
-      // if (response.data) {
-      //   const role = sessionStorage.getItem('role') as unknown as ROLE;
-      //   routeToHomePage(role, router);
-      // } else if (response.errorMessage) {
-      //   setSnackBar(true);
-      //   setSnackBarMessage(response.errorMessage);
-      // }
-      router.push('/organizer-home');
+      if (response.data) {
+        const role = sessionStorage.getItem('role') as unknown as ROLE;
+        routeToHomePage(role, router);
+      } else if (response.errorMessage) {
+        setSnackBar(true);
+        setSnackBarMessage(response.errorMessage);
+      }
     }
   };
 
