@@ -6,7 +6,7 @@ export const EVENT_CARD_CONTENT = [
     navigationURL: '/organizer-home/create-event',
   },
   {
-    heading: 'Check previous events',
+    heading: 'Check past events',
     description:
       'Dive into our archive of past events, view highlights, player stats, and gather insights to improve your own gameplay or event hosting skills.',
     navigationURL: '/organizer-home/past-events',

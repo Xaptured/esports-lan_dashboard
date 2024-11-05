@@ -127,7 +127,7 @@ function OrganizerNavBar() {
             sx={{
               flexGrow: 1,
               display: { xs: 'none', md: 'flex' },
-              justifyContent: 'center',
+              justifyContent: 'end',
             }}
           >
             {organizerTabs.map((tab, index) => (
