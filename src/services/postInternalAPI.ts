@@ -1,4 +1,5 @@
 import { CredentialsType } from '@/schemas/credentials';
+import { CustomAxiosResponse } from '@/types/CustomAxiosResponse';
 import { Response } from '@/types/Response';
 import axios from 'axios';
 
@@ -35,11 +36,20 @@ export const registerUser = async (userCredential: CredentialsType) => {
   }
 };
 
-export const loginUser = async (userCredential: CredentialsType) => {
+export const loginUser = async (
+  userCredential: CredentialsType
+): Promise<Response> => {
   try {
-    const { data } = await axios.post('/api/login', userCredential);
+    const response = await axios.post<any, CustomAxiosResponse>(
+      '/api/login',
+      userCredential
+    );
+    sessionStorage.setItem('access-token', response.headers['access-token']);
+    sessionStorage.setItem('role', response.headers['role']);
+    sessionStorage.setItem('email', response.data.email);
+
     return {
-      data: data,
+      data: response.data,
       message: undefined,
       errorMessage: undefined,
     } as Response;

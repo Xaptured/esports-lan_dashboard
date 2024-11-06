@@ -1,7 +1,7 @@
-export interface CustomInputProps
+export interface CustomDropdownProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
-  helperText?: React.ReactNode;
+  helperText?: string;
   label?: React.ReactNode;
   placeholder: string;
   name: any;

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Label } from '../ui/label';
-import { CustomInput } from '../ui/input';
+import { CustomInput } from '../ui/custom-input';
 import { cn } from '../../utilities/utils';
 import { Box, Typography, useTheme } from '@mui/material';
 import { LandingFormProps } from '@/types/LandingFormProps';
@@ -12,9 +12,25 @@ import CenterButton from '../button/center-button';
 import { loginUser, registerUser } from '@/services/postInternalAPI';
 import { useSetAtom } from 'jotai/react';
 import { snackBarAtom, snackBarMessageAtom } from '@/atoms/primitive';
+import { useRouter } from 'next/navigation';
+import { ROLE } from '@/enums/Roles';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+
+function routeToHomePage(role: ROLE, router: AppRouterInstance) {
+  if (role === ROLE.PARTICIPANT) {
+    router.push('organizer-home');
+  } else if (role === ROLE.ORGANIZER) {
+    router.push('participant-home');
+  } else if (role === ROLE.AUDIENCE) {
+    router.push('audience-home');
+  } else {
+    router.push('admin-home');
+  }
+}
 
 export function LandingForm(props: LandingFormProps) {
   const theme = useTheme();
+  const router = useRouter();
   const [loading, setLoading] = React.useState<boolean>(false);
   const setSnackBar = useSetAtom(snackBarAtom);
   const setSnackBarMessage = useSetAtom(snackBarMessageAtom);
@@ -34,7 +50,6 @@ export function LandingForm(props: LandingFormProps) {
       setLoading(false);
       setSnackBar(true);
       if (response.message) {
-        // TODO: create custom hook or something to reset the fields
         setValue('email', '');
         setValue('password', '');
         setSnackBarMessage(response.message);
@@ -45,7 +60,8 @@ export function LandingForm(props: LandingFormProps) {
       const response = await loginUser(data);
       setLoading(false);
       if (response.data) {
-        // TODO: router.push to respective home page
+        const role = sessionStorage.getItem('role') as unknown as ROLE;
+        routeToHomePage(role, router);
       } else if (response.errorMessage) {
         setSnackBar(true);
         setSnackBarMessage(response.errorMessage);

@@ -8,7 +8,13 @@ export async function POST(request: NextRequest) {
     const jsonRequest = await request.json();
     const url = domainProvider('identity/token');
     const loginResponse = await axios.post(url, jsonRequest);
-    return NextResponse.json({ data: loginResponse.data }, { status: 200 });
+    const response = NextResponse.json(
+      { email: loginResponse.data.email },
+      { status: 200 }
+    );
+    response.headers.set('access-token', loginResponse.data.message);
+    response.headers.set('role', loginResponse.data.role);
+    return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       logger.error(`Error occurred while login process.`);

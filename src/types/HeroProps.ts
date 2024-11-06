@@ -1,7 +1,13 @@
 export type HeroProps = {
-  formsRef: React.MutableRefObject<any>;
+  navigationRef?: React.MutableRefObject<any>;
+  headingContent: string;
+  bodyOne: string;
+  bodyTwo: string;
 };
 
 export type HeroContentProps = {
-  formsRef: React.MutableRefObject<any>;
+  navigationRef?: React.MutableRefObject<any>;
+  headingContent: string;
+  bodyOne: string;
+  bodyTwo: string;
 };

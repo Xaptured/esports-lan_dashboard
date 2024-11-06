@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
+    "@mui/x-date-pickers": "^7.22.1",
     "@radix-ui/react-label": "^2.1.0",
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.6",
@@ -24,6 +25,7 @@
     "@types/three": "^0.168.0",
     "axios": "^1.7.7",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "framer-motion": "^11.5.4",
     "jotai": "^2.9.3",
     "lodash": "^4.17.21",
@@ -37,7 +39,8 @@
     "three": "^0.168.0",
     "three-globe": "^2.31.1",
     "winston": "^3.14.2",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-key-parser": "^1.5.5"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.7",

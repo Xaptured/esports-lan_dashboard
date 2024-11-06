@@ -35,7 +35,12 @@ export default function Home() {
         connectRef={connectRef}
       />
       <section ref={heroRef}>
-        <Hero formsRef={formsRef} />
+        <Hero
+          navigationRef={formsRef}
+          headingContent="Single stop for LAN Event Management"
+          bodyOne="Welcome to ESports-LAN—where passion meets performance."
+          bodyTwo="Join us as we redefine the world of LAN gaming, one event at a time."
+        />
       </section>
       <section ref={aboutUsRef}>
         <AboutUs />

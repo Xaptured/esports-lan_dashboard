@@ -6,9 +6,16 @@ import CenterButton from '../button/center-button';
 import SendIcon from '@mui/icons-material/Send';
 import { HeroContentProps } from '@/types/HeroProps';
 
-export default function HeroContent(props: HeroContentProps) {
+export default function HeroContent({
+  navigationRef,
+  headingContent,
+  bodyOne,
+  bodyTwo,
+}: HeroContentProps) {
   const theme = useTheme();
-  const scrollToSection = (currentRef: React.MutableRefObject<any>) => {
+  const scrollToSection = (
+    currentRef: React.MutableRefObject<any> | undefined
+  ) => {
     if (currentRef && currentRef.current) {
       currentRef.current.scrollIntoView({ behavior: 'smooth' });
     }
@@ -25,7 +32,7 @@ export default function HeroContent(props: HeroContentProps) {
           textDecoration: 'none',
         }}
       >
-        Single stop for LAN Event Management
+        {headingContent}
       </Typography>
       <Container maxWidth="md">
         <Typography
@@ -39,7 +46,7 @@ export default function HeroContent(props: HeroContentProps) {
             textDecoration: 'none',
           }}
         >
-          Welcome to ESports-LAN—where passion meets performance.
+          {bodyOne}
         </Typography>
         <Typography
           variant="body1"
@@ -52,16 +59,18 @@ export default function HeroContent(props: HeroContentProps) {
             textDecoration: 'none',
           }}
         >
-          Join us as we redefine the world of LAN gaming, one event at a time.
+          {bodyTwo}
         </Typography>
-        <CenterButton
-          buttonText="Get Started"
-          size="large"
-          icon={true}
-          rightIcon={<SendIcon />}
-          buttonType="button"
-          handleClick={() => scrollToSection(props.formsRef)}
-        />
+        {navigationRef && (
+          <CenterButton
+            buttonText="Get Started"
+            size="large"
+            icon={true}
+            rightIcon={<SendIcon />}
+            buttonType="button"
+            handleClick={() => scrollToSection(navigationRef)}
+          />
+        )}
       </Container>
     </Container>
   );
