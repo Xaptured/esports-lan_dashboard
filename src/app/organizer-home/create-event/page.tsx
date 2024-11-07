@@ -1,10 +1,7 @@
 'use client';
 
 import CreateEventForm from '@/components/events/create-event-form';
-import EventCard from '@/components/events/event-card';
-import { LandingForm } from '@/components/landing-forms/landing-form';
-import { EVENT_CARD_CONTENT } from '@/constants/eventcardcontent';
-import { Box, Grid, Paper, Typography, useTheme } from '@mui/material';
+import { Box, Paper, Typography, useTheme } from '@mui/material';
 import React from 'react';
 
 export default function Events() {
@@ -22,7 +19,7 @@ export default function Events() {
       className={`h-full w-full ${gridTheme} relative flex items-center justify-center`}
     >
       <Box
-        className={`absolute pointer-events-none inset-0 flex items-center justify-center ${radialTheme} [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]`}
+        className={`absolute pointer-events-none inset-0 flex items-center justify-center ${radialTheme}`}
       ></Box>
       <Paper
         elevation={0}
