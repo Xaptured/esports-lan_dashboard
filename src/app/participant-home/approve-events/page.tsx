@@ -2,7 +2,6 @@
 
 import ApproveEventCard from '@/components/events/approve-event-card';
 import { Box, Container, Stack, useTheme } from '@mui/material';
-import 'overlayscrollbars/overlayscrollbars.css';
 import React from 'react';
 
 export default function ApproveEvents() {
