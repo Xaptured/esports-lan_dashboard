@@ -1,9 +1,7 @@
-export type CustomNavigationButtonProps = {
+export type SingleButtonProps = {
   size: 'small' | 'medium' | 'large';
-  nextButtonType: 'button' | 'submit' | 'reset';
-  prevButtonType: 'button' | 'submit' | 'reset';
-  nextButtonText: string;
-  prevButtonText: string;
+  buttonType: 'button' | 'submit' | 'reset';
+  buttonText: string;
   margin?: {
     top: number;
     bottom: number;
@@ -19,8 +17,6 @@ export type CustomNavigationButtonProps = {
   backgroundColor?: string;
   hoverBackgroundColor?: string;
   styleString?: string;
-  handleNextClick?: () => void;
-  handlePrevClick?: () => void;
+  handleClick?: () => void;
   isLoading?: boolean;
-  gridContainerMarginTop?: string;
 };

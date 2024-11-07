@@ -1,6 +1,6 @@
 import EventCard from '@/components/events/event-card';
 import Hero from '@/components/hero/hero';
-import { EVENT_CARD_CONTENT } from '@/constants/eventcardcontent';
+import { ORGANIZER_EVENT_CARD_CONTENT } from '@/constants/eventcardcontent';
 import { Box, Grid } from '@mui/material';
 import React from 'react';
 
@@ -23,7 +23,7 @@ export default function OrganizerHome() {
           marginTop: '0%',
         }}
       >
-        {EVENT_CARD_CONTENT.map((content) => (
+        {ORGANIZER_EVENT_CARD_CONTENT.map((content) => (
           <Grid item xl={4} lg={4} md={4}>
             <EventCard
               heading={content.heading}
