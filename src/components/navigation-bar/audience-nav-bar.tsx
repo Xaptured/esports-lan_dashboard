@@ -14,14 +14,15 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ThemeButton from '../theme/theme-button';
 import { useTheme } from '@mui/material';
-import { ResponsiveAppBarProps } from '@/types/ResponsiveAppBarProps';
-import { pages } from '@/constants/configuration-constannts';
+import { audienceTabs } from '@/constants/configuration-constannts';
+import { useRouter } from 'next/navigation';
 
-function ResponsiveAppBar(props: ResponsiveAppBarProps) {
+function AudienceNavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
   const theme = useTheme();
+  const router = useRouter();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -31,23 +32,11 @@ function ResponsiveAppBar(props: ResponsiveAppBarProps) {
     setAnchorElNav(null);
   };
 
-  const scrollToSection = (ref: React.MutableRefObject<any>) => {
-    if (ref && ref.current) {
-      ref.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleClickNavItem = (index: number) => {
-    if (index === 0)
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    if (index === 1) scrollToSection(props.aboutUsRef);
-    if (index === 2) scrollToSection(props.usersRef);
-    if (index === 3) scrollToSection(props.partnersRef);
-    if (index === 4) scrollToSection(props.formsRef);
-    if (index === 5) scrollToSection(props.connectRef);
+    if (index === 0) router.push('/organizer-home');
+    else if (index === 1) router.push('/organizer-home/bookings');
+    else if (index === 2) router.push('/organizer-home/check-in');
+    else router.push('/organizer-home/help');
   };
 
   return (
@@ -106,14 +95,14 @@ function ResponsiveAppBar(props: ResponsiveAppBarProps) {
                 color: theme.palette.text.primary,
               }}
             >
-              {pages.map((page, index) => (
-                <MenuItem key={page} onClick={() => handleClickNavItem(index)}>
+              {audienceTabs.map((tab, index) => (
+                <MenuItem key={tab} onClick={() => handleClickNavItem(index)}>
                   <Typography
                     variant="body2"
                     textAlign="center"
                     sx={{ color: theme.palette.text.primary }}
                   >
-                    {page}
+                    {tab}
                   </Typography>
                 </MenuItem>
               ))}
@@ -141,10 +130,10 @@ function ResponsiveAppBar(props: ResponsiveAppBarProps) {
               justifyContent: 'end',
             }}
           >
-            {pages.map((page, index) => (
+            {audienceTabs.map((tab, index) => (
               <Button
                 variant="text"
-                key={page}
+                key={tab}
                 onClick={() => handleClickNavItem(index)}
                 sx={{
                   my: 2,
@@ -157,7 +146,7 @@ function ResponsiveAppBar(props: ResponsiveAppBarProps) {
                   textAlign="center"
                   sx={{ color: theme.palette.text.primary }}
                 >
-                  {page}
+                  {tab}
                 </Typography>
               </Button>
             ))}
@@ -173,4 +162,4 @@ function ResponsiveAppBar(props: ResponsiveAppBarProps) {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default AudienceNavBar;
