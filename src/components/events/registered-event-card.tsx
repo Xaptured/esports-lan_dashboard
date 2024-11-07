@@ -1,5 +1,4 @@
 import {
-  Box,
   Container,
   Dialog,
   DialogActions,
@@ -17,7 +16,6 @@ import {
   useTheme,
 } from '@mui/material';
 import React from 'react';
-import NavigationButtons from '../button/navigation-buttons';
 import SingleButton from '../button/single-button';
 import { TransitionProps } from '@mui/material/transitions';
 
@@ -30,7 +28,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ApproveEventCard() {
+export default function RegisteredEventCard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
@@ -71,12 +69,6 @@ export default function ApproveEventCard() {
         size="medium"
         handleClick={handleDialogOpen}
       />
-      <Box
-        sx={{ width: '30%', display: 'flex', justifyContent: 'space-around' }}
-      >
-        <SingleButton buttonText="approve" buttonType="button" size="medium" />
-        <SingleButton buttonText="reject" buttonType="button" size="medium" />
-      </Box>
 
       <Dialog
         open={open}
@@ -178,19 +170,15 @@ export default function ApproveEventCard() {
           </TableContainer>
         </DialogContent>
         <DialogActions>
-          <Container maxWidth="md">
-            <NavigationButtons
-              nextButtonType="button"
-              prevButtonType="button"
-              nextButtonText="Approve"
-              prevButtonText="Reject"
-              size="small"
-              styleString="w-full"
-              padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
-              fontSize="16"
-              handleNextClick={handleDialogClose}
-              handlePrevClick={handleDialogClose}
-              gridContainerMarginTop="mt-1"
+          <Container
+            maxWidth="md"
+            sx={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <SingleButton
+              buttonText="close"
+              buttonType="button"
+              size="large"
+              handleClick={handleDialogClose}
             />
           </Container>
         </DialogActions>

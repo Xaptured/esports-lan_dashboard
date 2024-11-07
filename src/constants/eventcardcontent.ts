@@ -39,3 +39,24 @@ export const PARTICIPANT_EVENT_CARD_CONTENT = [
     navigationURL: '/participant-home/future-events',
   },
 ];
+
+export const AUDIENCE_EVENT_CARD_CONTENT = [
+  {
+    heading: 'Registered events',
+    description:
+      'Easily set up and manage your own LAN event with custom details, from venue to game selection, and offer participants a seamless booking experience.',
+    navigationURL: '/audience-home/registered-events',
+  },
+  {
+    heading: 'Check past events',
+    description:
+      'Dive into our archive of past events, view highlights, player stats, and gather insights to improve your own gameplay or event hosting skills.',
+    navigationURL: '/audience-home/past-events',
+  },
+  {
+    heading: 'Check future events',
+    description:
+      'Stay in the loop with our lineup of upcoming LAN events. Browse schedules, ticket availability, and secure your spot for the next big match.',
+    navigationURL: '/audience-home/future-events',
+  },
+];
