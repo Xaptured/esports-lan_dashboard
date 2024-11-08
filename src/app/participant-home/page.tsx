@@ -1,14 +1,27 @@
+'use client';
+
 import EventCard from '@/components/events/event-card';
 import Hero from '@/components/hero/hero';
 import { PARTICIPANT_EVENT_CARD_CONTENT } from '@/constants/eventcardcontent';
+import { getGreeting, startGreetingInterval } from '@/utilities/utils';
 import { Box, Grid } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function OrganizerHome() {
+  const [greetMessage, setGreetMessage] = useState<string>('');
+
+  useEffect(() => {
+    const message = getGreeting();
+    setGreetMessage(message);
+  }, []);
+
+  startGreetingInterval((message: string) => {
+    setGreetMessage(message);
+  });
   return (
     <Box>
       <Hero
-        headingContent="Good Morning"
+        headingContent={greetMessage}
         bodyOne="Welcome back to your personalized home page."
         bodyTwo="Are you ready to participate in brand new LAN events? If yes, then scroll down!"
       />

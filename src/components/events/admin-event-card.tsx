@@ -18,6 +18,7 @@ import {
 import React from 'react';
 import SingleButton from '../button/single-button';
 import { TransitionProps } from '@mui/material/transitions';
+import NavigationButtons from '../button/navigation-buttons';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -28,7 +29,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function RegisteredEventCard() {
+export default function AdminEventCard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
@@ -170,18 +171,19 @@ export default function RegisteredEventCard() {
           </TableContainer>
         </DialogContent>
         <DialogActions>
-          <Container
-            maxWidth="xs"
-            sx={{ display: 'flex', justifyContent: 'center' }}
-          >
-            <SingleButton
-              buttonText="close"
-              buttonType="button"
-              size="medium"
-              handleClick={handleDialogClose}
+          <Container maxWidth="md">
+            <NavigationButtons
+              nextButtonType="button"
+              prevButtonType="button"
+              nextButtonText="Approve"
+              prevButtonText="Reject"
+              size="small"
               styleString="w-full"
               padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
               fontSize="16"
+              handleNextClick={handleDialogClose}
+              handlePrevClick={handleDialogClose}
+              gridContainerMarginTop="mt-1"
             />
           </Container>
         </DialogActions>
