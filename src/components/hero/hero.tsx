@@ -11,7 +11,7 @@ export default function Hero({
   bodyTwo,
 }: HeroProps) {
   return (
-    <Box>
+    <Box sx={{ height: '71vh' }}>
       <HeroContent
         navigationRef={navigationRef}
         headingContent={headingContent}
