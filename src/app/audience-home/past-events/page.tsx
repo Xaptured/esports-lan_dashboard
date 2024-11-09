@@ -1,5 +1,6 @@
 'use client';
 
+import ApproveEventCard from '@/components/events/approve-event-card';
 import RegisteredEventCard from '@/components/events/registered-event-card';
 import { Box, Container, Stack, useTheme } from '@mui/material';
 import React from 'react';

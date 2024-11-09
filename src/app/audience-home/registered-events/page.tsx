@@ -1,11 +1,10 @@
 'use client';
 
-import ApproveEventCard from '@/components/events/approve-event-card';
 import RegisteredEventCard from '@/components/events/registered-event-card';
 import { Box, Container, Stack, useTheme } from '@mui/material';
 import React from 'react';
 
-export default function ApproveEvents() {
+export default function RegisteredEvents() {
   const theme = useTheme();
   const gridTheme =
     theme.palette.mode === 'dark'
@@ -29,6 +28,7 @@ export default function ApproveEvents() {
           ))}
         </Stack>
       </Container>
+      {/* TODO: need to add live updates, media and links, will be done in XAP-32 ANND XAP-34 */}
     </Box>
   );
 }
