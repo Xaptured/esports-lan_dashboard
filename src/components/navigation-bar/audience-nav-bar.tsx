@@ -33,10 +33,9 @@ function AudienceNavBar() {
   };
 
   const handleClickNavItem = (index: number) => {
-    if (index === 0) router.push('/organizer-home');
-    else if (index === 1) router.push('/organizer-home/bookings');
-    else if (index === 2) router.push('/organizer-home/check-in');
-    else router.push('/organizer-home/help');
+    if (index === 0) router.push('/audience-home');
+    else if (index === 1) router.push('/audience-home/bookings');
+    else router.push('/audience-home/help');
   };
 
   return (
