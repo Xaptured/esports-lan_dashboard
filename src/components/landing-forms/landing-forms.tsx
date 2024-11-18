@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { LandingForm } from './landing-form';
-import Link from 'next/link';
 
 export default function LandingForms() {
   const theme = useTheme();

@@ -3,6 +3,7 @@ export type HeroProps = {
   headingContent: string;
   bodyOne: string;
   bodyTwo: string;
+  styledObject?: { mt: number; mb: number };
 };
 
 export type HeroContentProps = {
@@ -10,4 +11,5 @@ export type HeroContentProps = {
   headingContent: string;
   bodyOne: string;
   bodyTwo: string;
+  styledObject?: { mt: number; mb: number };
 };

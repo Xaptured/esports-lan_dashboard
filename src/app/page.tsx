@@ -40,6 +40,7 @@ export default function Home() {
           headingContent="Single stop for LAN Event Management"
           bodyOne="Welcome to ESports-LAN—where passion meets performance."
           bodyTwo="Join us as we redefine the world of LAN gaming, one event at a time."
+          styledObject={{ mt: 22, mb: 2 }}
         />
       </section>
       <section ref={aboutUsRef}>

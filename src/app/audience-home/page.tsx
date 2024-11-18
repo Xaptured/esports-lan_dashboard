@@ -28,7 +28,7 @@ export default function AudienceHome() {
       {/* TODO: Add descriptions for nav bar items */}
       <Grid
         container
-        spacing={12}
+        spacing={6}
         justifyContent="center"
         alignItems="start"
         sx={{
