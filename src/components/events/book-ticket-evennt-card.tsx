@@ -18,7 +18,6 @@ import {
 import React from 'react';
 import SingleButton from '../button/single-button';
 import { TransitionProps } from '@mui/material/transitions';
-import NavigationButtons from '../button/navigation-buttons';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -29,9 +28,10 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AdminEventCard() {
+export default function BookTicketEventCard() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [participantOpen, setParticipantOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
   const handleDialogOpen = () => {
@@ -40,6 +40,14 @@ export default function AdminEventCard() {
 
   const handleDialogClose = () => {
     setOpen(false);
+  };
+
+  const handleParticipantDialogOpen = () => {
+    setParticipantOpen(true);
+  };
+
+  const handleParticipantDialogClose = () => {
+    setParticipantOpen(false);
   };
 
   return (
@@ -67,6 +75,18 @@ export default function AdminEventCard() {
       </Typography>
       <SingleButton
         buttonText="show details"
+        buttonType="button"
+        size="medium"
+        handleClick={handleDialogOpen}
+      />
+      <SingleButton
+        buttonText="show participants"
+        buttonType="button"
+        size="medium"
+        handleClick={handleParticipantDialogOpen}
+      />
+      <SingleButton
+        buttonText="book tickets"
         buttonType="button"
         size="medium"
         handleClick={handleDialogOpen}
@@ -172,19 +192,68 @@ export default function AdminEventCard() {
           </TableContainer>
         </DialogContent>
         <DialogActions>
-          <Container maxWidth="md">
-            <NavigationButtons
-              nextButtonType="button"
-              prevButtonType="button"
-              nextButtonText="Approve"
-              prevButtonText="Reject"
-              size="small"
+          <Container
+            maxWidth="xs"
+            sx={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <SingleButton
+              buttonText="close"
+              buttonType="button"
+              size="medium"
+              handleClick={handleDialogClose}
               styleString="w-full"
               padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
               fontSize="16"
-              handleNextClick={handleDialogClose}
-              handlePrevClick={handleDialogClose}
-              gridContainerMarginTop="mt-1"
+            />
+          </Container>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={participantOpen}
+        TransitionComponent={Transition}
+        onClose={handleParticipantDialogClose}
+        scroll={scroll}
+        fullScreen
+        sx={{
+          '& .MuiDialog-paper': {
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.text.primary,
+          },
+        }}
+      >
+        <DialogTitle>
+          <Typography
+            variant="body1"
+            align="center"
+            gutterBottom={false}
+            noWrap={false}
+            sx={{
+              color: theme.palette.text.primary,
+              textDecoration: 'none',
+            }}
+          >
+            Participants list
+          </Typography>
+        </DialogTitle>
+        <DialogContent
+          dividers={scroll === 'paper'}
+          sx={{ display: 'flex', justifyContent: 'center' }}
+        >
+          Participant List
+        </DialogContent>
+        <DialogActions>
+          <Container
+            maxWidth="xs"
+            sx={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <SingleButton
+              buttonText="close"
+              buttonType="button"
+              size="medium"
+              handleClick={handleParticipantDialogClose}
+              styleString="w-full"
+              padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
+              fontSize="16"
             />
           </Container>
         </DialogActions>

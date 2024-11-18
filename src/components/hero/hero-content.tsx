@@ -11,6 +11,7 @@ export default function HeroContent({
   headingContent,
   bodyOne,
   bodyTwo,
+  styledObject,
 }: HeroContentProps) {
   const theme = useTheme();
   const scrollToSection = (
@@ -21,7 +22,7 @@ export default function HeroContent({
     }
   };
   return (
-    <Container maxWidth="lg" sx={{ mb: 2, mt: 22 }}>
+    <Container maxWidth="lg" sx={styledObject}>
       <Typography
         variant="h1"
         align="center"

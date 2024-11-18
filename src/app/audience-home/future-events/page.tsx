@@ -1,10 +1,10 @@
 'use client';
 
-import RegisteredEventCard from '@/components/events/registered-event-card';
+import BookTicketEventCard from '@/components/events/book-ticket-evennt-card';
 import { Box, Container, Stack, useTheme } from '@mui/material';
 import React from 'react';
 
-export default function PastEvents() {
+export default function FutureEvents() {
   const theme = useTheme();
   const gridTheme =
     theme.palette.mode === 'dark'
@@ -24,11 +24,10 @@ export default function PastEvents() {
       <Container maxWidth="lg">
         <Stack spacing={4}>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-            <RegisteredEventCard showParticipants={true} />
+            <BookTicketEventCard />
           ))}
         </Stack>
       </Container>
-      {/* TODO: need to add live updates, media and links, will be done in XAP-32 ANND XAP-34 */}
     </Box>
   );
 }

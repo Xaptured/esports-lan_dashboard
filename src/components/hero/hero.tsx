@@ -9,14 +9,16 @@ export default function Hero({
   headingContent,
   bodyOne,
   bodyTwo,
+  styledObject,
 }: HeroProps) {
   return (
-    <Box sx={{ height: '71vh' }}>
+    <Box>
       <HeroContent
         navigationRef={navigationRef}
         headingContent={headingContent}
         bodyOne={bodyOne}
         bodyTwo={bodyTwo}
+        styledObject={styledObject}
       />
       <SparklesPreview />
     </Box>
