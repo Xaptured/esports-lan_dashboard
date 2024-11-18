@@ -45,14 +45,14 @@ export default function HelpWrapper() {
     setOpen(false);
   };
   return (
-    <BackgroundLines className="flex items-center justify-center ">
+    <BackgroundLines className="flex items-center justify-center">
       <Paper
         elevation={24}
         sx={{
           background: 'transparent',
           padding: '3%',
           width: '40%',
-          marginTop: '3%',
+          marginTop: '1%',
         }}
         variant="outlined"
         className="backdrop-blur-sm"

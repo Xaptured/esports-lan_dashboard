@@ -64,7 +64,6 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
         alignItems: 'center',
         justifyContent: 'space-around',
         padding: '4%',
-        zIndex: 100,
       }}
       elevation={0}
     >
