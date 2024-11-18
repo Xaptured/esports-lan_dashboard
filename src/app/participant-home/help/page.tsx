@@ -1,5 +1,6 @@
+import HelpWrapper from '@/components/help-wrapper/help-wrapper';
 import React from 'react';
 
 export default function Help() {
-  return <div>Help</div>;
+  return <HelpWrapper />;
 }

@@ -6,26 +6,24 @@ import { z } from 'zod';
 export const isDateNotPast = (dateStr: string) => {
   const [month, day, year] = dateStr.split('/').map(Number);
 
-  // Create a Date object using the provided month, day, and year
-  const inputDate = new Date(year, month - 1, day); // Month is 0-indexed in Date
+  const inputDate = new Date(year, month - 1, day);
 
   const now = new Date();
-  now.setHours(0, 0, 0, 0); // Set time to the start of the day for comparison
-  inputDate.setHours(0, 0, 0, 0); // Also set input date time to the start of the day
+  now.setHours(0, 0, 0, 0);
+  inputDate.setHours(0, 0, 0, 0);
 
-  return inputDate >= now; // Check if the input date is today or in the future
+  return inputDate >= now;
 };
 
 export const isTimeNotPast = (timeStr: string) => {
   const now = new Date();
-  const [time, modifier] = timeStr.split(' '); // Split into time and AM/PM
-  let [hours, minutes] = time.split(':').map(Number); // Split into hours and minutes
+  const [time, modifier] = timeStr.split(' ');
+  let [hours, minutes] = time.split(':').map(Number);
 
-  // Adjust hours for AM/PM
   if (modifier === 'PM' && hours < 12) {
-    hours += 12; // Convert PM hours to 24-hour format
+    hours += 12;
   } else if (modifier === 'AM' && hours === 12) {
-    hours = 0; // Convert 12 AM to 0 hours
+    hours = 0;
   }
 
   const inputTime = new Date(
@@ -35,9 +33,8 @@ export const isTimeNotPast = (timeStr: string) => {
     hours,
     minutes,
     0
-  ); // Create Date object
+  );
 
-  // Compare input time with current time
   return inputTime >= now;
 };
 
@@ -69,7 +66,6 @@ const eventDetailsSchema = z.object({
       (value) => {
         const [month, day, year] = value.split('/').map(Number);
         const date = new Date(year, month - 1, day);
-        // Validate the date
         return (
           date.getFullYear() === year &&
           date.getMonth() === month - 1 &&
