@@ -1,0 +1,319 @@
+import axios from 'axios';
+import { Response } from '@/types/Response';
+
+export const fetchInactiveEventsForAdmin = async () => {
+  try {
+    const response = await axios.get('/api/admin/inactive-events');
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchPastEventsForAudience = async (email: string) => {
+  try {
+    const response = await axios.get(
+      '/api/audience/fetch-past-events?email=' + email
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchFutureEventsForAudience = async (email: string) => {
+  try {
+    const response = await axios.get(
+      '/api/audience/fetch-future-events?email=' + email
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchLiveEventsForAudience = async (email: string) => {
+  try {
+    const response = await axios.get(
+      '/api/audience/fetch-live-events?email=' + email
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchFutureEventsForOrganizer = async (email: string) => {
+  try {
+    const response = await axios.get(
+      '/api/organizer/fetch-future-events?email=' + email
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchPastEventsForOrganizer = async (email: string) => {
+  try {
+    const response = await axios.get(
+      '/api/organizer/fetch-past-events?email=' + email
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchPendingTeamsForParticipant = async (email: string) => {
+  try {
+    const response = await axios.get(
+      '/api/participant/fetch-pending-teams?email=' + email
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchPastEventsForParticipant = async (email: string) => {
+  try {
+    const response = await axios.get(
+      '/api/participant/fetch-past-events?email=' + email
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchFutureEventsForParticipant = async (email: string) => {
+  try {
+    const response = await axios.get(
+      '/api/participant/fetch-future-events?email=' + email
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchEventDetails = async (eventName: string) => {
+  try {
+    const response = await axios.get(
+      '/api/event/fetch-event-details?eventName=' + eventName
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchTeamDetails = async (eventName: string) => {
+  try {
+    const response = await axios.get(
+      '/api/event/fetch-team-details?eventName=' + eventName
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};

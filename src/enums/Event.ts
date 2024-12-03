@@ -3,3 +3,11 @@ export enum EVENT_TYPE {
   DUO = 'Duo',
   SQUAD = 'Squad',
 }
+
+export enum EVENT_STATUS {
+  INACTIVE = 'INACTIVE',
+  ACTIVE = 'ACTIVE',
+  ONGOING = 'ONGOING',
+  COMPLETED = 'COMPLETED',
+  REJECTED = 'REJECTED',
+}
