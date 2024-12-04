@@ -35,6 +35,7 @@ import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 import { CustomDatepicker } from '../ui/custom-datepicker';
 import { TransitionProps } from '@mui/material/transitions';
+import { saveOrUpdateEvent } from '@/services/postInternalAPI';
 
 const LabelInputContainer = ({
   children,
@@ -150,7 +151,7 @@ export default function CreateEventForm({ className }: { className: string }) {
   };
 
   const handler: SubmitHandler<EventType> = async (data) => {
-    console.log(data);
+    await saveOrUpdateEvent(data, false);
     handleDialogOpen();
   };
 
@@ -161,7 +162,7 @@ export default function CreateEventForm({ className }: { className: string }) {
           <Grid item xl={6} lg={6} md={6} sm={12}>
             {/* EVENT NAME */}
             <LabelInputContainer className="mb-8">
-              <Label htmlFor={eventKeys.eventName}>
+              <Label htmlFor={eventKeys.name}>
                 <Typography
                   variant="body2"
                   align="left"
@@ -176,13 +177,13 @@ export default function CreateEventForm({ className }: { className: string }) {
                 </Typography>
               </Label>
               <CustomInput
-                id={eventKeys.eventName}
+                id={eventKeys.name}
                 placeholder="Xapture's Event"
                 type="text"
-                name={eventKeys.eventName}
+                name={eventKeys.name}
                 control={control}
-                error={errors.eventName ? true : false}
-                helperText={errors.eventName?.message}
+                error={errors.name ? true : false}
+                helperText={errors.name?.message}
               />
             </LabelInputContainer>
           </Grid>
@@ -403,7 +404,7 @@ export default function CreateEventForm({ className }: { className: string }) {
           <Grid item xl={6} lg={6} md={6} sm={12}>
             {/* PRIZE */}
             <LabelInputContainer className="mb-8">
-              <Label htmlFor={eventKeys.eventDetails.prizepool}>
+              <Label htmlFor={eventKeys.eventDetails.prizePool}>
                 <Typography
                   variant="body2"
                   align="left"
@@ -418,13 +419,13 @@ export default function CreateEventForm({ className }: { className: string }) {
                 </Typography>
               </Label>
               <CustomInput
-                id={eventKeys.eventDetails.prizepool}
+                id={eventKeys.eventDetails.prizePool}
                 placeholder="Prize pool"
                 type="text"
-                name={eventKeys.eventDetails.prizepool}
+                name={eventKeys.eventDetails.prizePool}
                 control={control}
-                error={errors.eventDetails?.prizepool ? true : false}
-                helperText={errors.eventDetails?.prizepool?.message}
+                error={errors.eventDetails?.prizePool ? true : false}
+                helperText={errors.eventDetails?.prizePool?.message}
               />
             </LabelInputContainer>
           </Grid>

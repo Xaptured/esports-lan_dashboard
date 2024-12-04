@@ -50,7 +50,7 @@ const eventDetailsSchema = z.object({
   eventType: z.nativeEnum(EVENT_TYPE, {
     required_error: 'Event type is required.',
   }),
-  prizepool: z.string({ required_error: 'Prizepool is required.' }),
+  prizePool: z.string({ required_error: 'Prizepool is required.' }),
   totalSlots: z
     .string({ required_error: 'Total slots is required.' })
     .refine((val) => !isNaN(Number(val)), {
@@ -82,7 +82,7 @@ const eventDetailsSchema = z.object({
 });
 
 export const eventSchema = z.object({
-  eventName: z.string({ required_error: 'Event name is required.' }),
+  name: z.string({ required_error: 'Event name is required.' }),
   gameName: z.string({ required_error: 'Game name is required.' }),
   address: addressSchema,
   eventDetails: eventDetailsSchema,

@@ -1,6 +1,7 @@
 import { EVENT_STATUS } from '@/enums/Event';
 import { TEAM_STATUS } from '@/enums/Team';
 import { CredentialsType } from '@/schemas/credentials';
+import { EventType } from '@/schemas/event';
 import { CustomAxiosResponse } from '@/types/CustomAxiosResponse';
 import { Response } from '@/types/Response';
 import axios from 'axios';
@@ -164,12 +165,20 @@ export const saveOrUpdateAudience = async (audience: object) => {
   }
 };
 
-// TODO: assign type for event
-export const saveOrUpdateEvent = async (event: object, isUpdate: boolean) => {
+// TODO: add email from cookies
+export const saveOrUpdateEvent = async (
+  event: EventType,
+  isUpdate: boolean
+) => {
   try {
+    const payload = {
+      ...event,
+      eventStatus: EVENT_STATUS.INACTIVE,
+      email: 'j@gmail.com',
+    };
     const response = await axios.post(
       '/api/organizer/save-update-event?isUpdate=' + isUpdate,
-      event
+      payload
     );
     const { responseBody } = response.data;
     return {
@@ -225,7 +234,7 @@ export const saveTeams = async (teams: object[]) => {
 export const updateTeamStatus = async (
   eventName: string,
   status: TEAM_STATUS,
-  email: string
+  email: string | undefined
 ) => {
   try {
     const response = await axios.post(
