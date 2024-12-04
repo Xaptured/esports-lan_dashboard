@@ -138,7 +138,7 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
                 textDecoration: 'none',
               }}
             >
-              {eventDetails?.eventName}
+              {eventDetails.name}
             </Typography>
           </DialogTitle>
           <DialogContent
@@ -199,7 +199,7 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
                       Prize
                     </TableCell>
                     <TableCell align="right">
-                      {eventDetails.eventDetails.prizepool}
+                      {eventDetails.eventDetails.prizePool}
                     </TableCell>
                   </TableRow>
                   <TableRow key="total-slots">
