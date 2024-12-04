@@ -136,7 +136,7 @@ export default function BookTicketEventCard(props: EventCardProps) {
                 textDecoration: 'none',
               }}
             >
-              {eventDetails.eventName}
+              {eventDetails.name}
             </Typography>
           </DialogTitle>
           <DialogContent
@@ -197,7 +197,7 @@ export default function BookTicketEventCard(props: EventCardProps) {
                       Prize
                     </TableCell>
                     <TableCell align="right">
-                      {eventDetails.eventDetails.prizepool}
+                      {eventDetails.eventDetails.prizePool}
                     </TableCell>
                   </TableRow>
                   <TableRow key="total-slots">
