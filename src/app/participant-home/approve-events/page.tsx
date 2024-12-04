@@ -2,6 +2,8 @@ import ApproveEventCardWrapper from '@/components/events/approve-event-card-wrap
 import { fetchPendingTeamsForParticipant } from '@/services/getInternalAPI';
 import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ApproveEvents() {
   const cookie = cookies();
   const email = cookie.get('email');

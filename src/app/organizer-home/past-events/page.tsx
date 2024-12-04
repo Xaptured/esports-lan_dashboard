@@ -2,6 +2,8 @@ import RegisteredEventCardWrapper from '@/components/events/registered-event-car
 import { fetchPastEventsForOrganizer } from '@/services/getInternalAPI';
 import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 export default async function PastEvents() {
   const cookie = cookies();
   const email = cookie.get('email');
