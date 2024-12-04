@@ -17,7 +17,7 @@
     "@mui/x-date-pickers": "^7.22.1",
     "@radix-ui/react-label": "^2.1.0",
     "@react-three/drei": "^9.112.0",
-    "@react-three/fiber": "^8.17.6",
+    "@react-three/fiber": "^8.17.10",
     "@tabler/icons-react": "^3.14.0",
     "@tsparticles/engine": "^3.5.0",
     "@tsparticles/react": "^3.0.0",
