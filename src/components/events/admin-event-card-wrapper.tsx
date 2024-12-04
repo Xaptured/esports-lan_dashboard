@@ -1,10 +1,11 @@
 'use client';
 
-import BookTicketEventCard from '@/components/events/book-ticket-evennt-card';
+import AdminEventCard from '@/components/events/admin-event-card';
+import { EventCardWrapperProps } from '@/types/Props';
 import { Box, Container, Stack, useTheme } from '@mui/material';
 import React from 'react';
 
-export default function FutureEvents() {
+export default function AdminEventCardWrapper(props: EventCardWrapperProps) {
   const theme = useTheme();
   const gridTheme =
     theme.palette.mode === 'dark'
@@ -23,8 +24,8 @@ export default function FutureEvents() {
       ></Box>
       <Container maxWidth="lg">
         <Stack spacing={4}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-            <BookTicketEventCard eventName="" />
+          {props.data.map((value) => (
+            <AdminEventCard eventName={value.name} />
           ))}
         </Stack>
       </Container>
