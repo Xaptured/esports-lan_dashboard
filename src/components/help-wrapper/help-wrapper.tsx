@@ -151,7 +151,7 @@ export default function HelpWrapper() {
           <DialogContent dividers={scroll === 'paper'}>
             <Grid container spacing={4}>
               {FAQ.map((faq) => (
-                <Grid item xl={6}>
+                <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
                   <FAQCard question={faq.question} answer={faq.answer} />
                 </Grid>
               ))}
