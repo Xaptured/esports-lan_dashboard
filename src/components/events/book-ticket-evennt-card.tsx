@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Container,
   Dialog,
@@ -96,7 +98,7 @@ export default function BookTicketEventCard(props: EventCardProps) {
           textDecoration: 'none',
         }}
       >
-        Event Name
+        {props.eventName}
       </Typography>
       <SingleButton
         buttonText="show details"

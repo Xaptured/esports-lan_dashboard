@@ -167,16 +167,16 @@ export const saveOrUpdateAudience = async (audience: object) => {
   }
 };
 
-// TODO: add email from cookies
 export const saveOrUpdateEvent = async (
   event: EventType,
-  isUpdate: boolean
+  isUpdate: boolean,
+  email: string
 ) => {
   try {
     const payload = {
       ...event,
       eventStatus: EVENT_STATUS.INACTIVE,
-      email: 'j@gmail.com',
+      email: email,
     };
     const response = await axios.post(
       '/api/organizer/save-update-event?isUpdate=' + isUpdate,

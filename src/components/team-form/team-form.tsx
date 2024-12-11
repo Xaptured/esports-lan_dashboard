@@ -15,6 +15,7 @@ import { CustomInput } from '../ui/custom-input';
 import { checkForDuplicateEmails, cn } from '@/utilities/utils';
 import { CreateTeamFormProps } from '@/types/Props';
 import CenterButton from '../button/center-button';
+import { EVENT_TYPE } from '@/enums/Event';
 
 const LabelInputContainer = ({
   children,
@@ -33,7 +34,16 @@ const LabelInputContainer = ({
 export const CreateTeamForm = (props: CreateTeamFormProps) => {
   const theme = useTheme();
   const [loading, setLoading] = React.useState<boolean>(false);
-  // TODO: update number of team mates acc to event details
+  let teamSizeCount = 1;
+  if (props.teamSize === EVENT_TYPE.SOLO) {
+    teamSizeCount = 1;
+  }
+  if (props.teamSize === EVENT_TYPE.DUO) {
+    teamSizeCount = 2;
+  }
+  if (props.teamSize === EVENT_TYPE.SQUAD) {
+    teamSizeCount = 4;
+  }
   const {
     handleSubmit,
     control,
@@ -42,7 +52,7 @@ export const CreateTeamForm = (props: CreateTeamFormProps) => {
     clearErrors,
     formState: { errors },
   } = useForm<TeamType>({
-    resolver: zodResolver(teamSchema(4)),
+    resolver: zodResolver(teamSchema(teamSizeCount)),
   });
 
   const emails = watch('teammateEmails');
@@ -53,14 +63,18 @@ export const CreateTeamForm = (props: CreateTeamFormProps) => {
   const [snackBar, setSnackBar] = useState<string | undefined>(undefined);
 
   const onSubmit = (data: TeamType) => {
-    const result = checkForDuplicateEmails(data.teammateEmails);
-    if (result.hasDuplicates) {
-      setSnackBar('Duplicate emails not allowed');
+    if (props.teams && props.teams?.length >= props.totalTeams) {
+      setSnackBar('All team slots are filled');
     } else {
-      if (props.teams) {
-        props.setTeam([...props.teams, data]);
+      const result = checkForDuplicateEmails(data.teammateEmails);
+      if (result.hasDuplicates) {
+        setSnackBar('Duplicate emails not allowed');
       } else {
-        props.setTeam([data]);
+        if (props.teams) {
+          props.setTeam([...props.teams, data]);
+        } else {
+          props.setTeam([data]);
+        }
       }
     }
   };
@@ -133,7 +147,7 @@ export const CreateTeamForm = (props: CreateTeamFormProps) => {
           </LabelInputContainer>
         )}
 
-        {fields.length < 4 && (
+        {fields.length < teamSizeCount && (
           <Button type="button" onClick={handleAddTeamMate}>
             Add Teammate
           </Button>

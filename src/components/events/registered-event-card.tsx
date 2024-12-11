@@ -75,8 +75,10 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
   };
 
   const handleShowDetails = async () => {
-    const { data } = await fetchEventDetails(props.eventName);
-    setEventDetails(data);
+    if (!eventDetails) {
+      const { data } = await fetchEventDetails(props.eventName);
+      setEventDetails(data);
+    }
     handleDialogOpen();
   };
 
@@ -87,7 +89,11 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
     handleParticipantDialogOpen();
   };
 
-  const handleAddParticipantsDialogOpen = () => {
+  const handleAddParticipantsDialogOpen = async () => {
+    if (!eventDetails) {
+      const { data } = await fetchEventDetails(props.eventName);
+      setEventDetails(data);
+    }
     setAddParticipantOpen(true);
   };
 
@@ -285,7 +291,6 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* TODO: add show participants accordian component */}
           </DialogContent>
           <DialogActions>
             <Container
@@ -360,7 +365,7 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
           </DialogActions>
         </Dialog>
       )}
-      {props.addParticipants && (
+      {props.addParticipants && eventDetails && (
         <Dialog
           open={addParticipantOpen}
           TransitionComponent={Transition}
@@ -394,7 +399,12 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
           >
             <Grid container spacing={2}>
               <Grid item xl={4} lg={4} md={6} sm={8} xs={12}>
-                <CreateTeamForm teams={teams} setTeam={setTeams} />
+                <CreateTeamForm
+                  teams={teams}
+                  setTeam={setTeams}
+                  totalTeams={eventDetails.eventDetails.totalSlots}
+                  teamSize={eventDetails.eventDetails.eventType}
+                />
               </Grid>
               <Grid item xl={8} lg={8} md={6} sm={4} xs={12}>
                 <Grid container spacing={2} className="scrollable-container">

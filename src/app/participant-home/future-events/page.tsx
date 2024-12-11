@@ -9,5 +9,11 @@ export default async function FutureEvents() {
   const email = cookie.get('email');
 
   const { data } = await fetchFutureEventsForParticipant(email?.value);
-  return <RegisteredEventCardWrapper data={data} />;
+  return (
+    <RegisteredEventCardWrapper
+      data={data}
+      showParticipants={true}
+      addParticipants={false}
+    />
+  );
 }

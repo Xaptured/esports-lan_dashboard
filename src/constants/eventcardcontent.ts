@@ -48,6 +48,12 @@ export const AUDIENCE_EVENT_CARD_CONTENT = [
     navigationURL: '/audience-home/registered-events',
   },
   {
+    heading: 'Live events',
+    description:
+      'Experience the thrill of live LAN events as they happen! Watch matches in real-time, track scores, and stay connected to the excitement.',
+    navigationURL: '/audience-home/live-events',
+  },
+  {
     heading: 'Check past events',
     description:
       'Dive into our archive of past events, view highlights, player stats, and gather insights to improve your own gameplay or event hosting skills.',

@@ -1,11 +1,11 @@
 'use client';
 
+import BookTicketEventCard from '@/components/events/book-ticket-evennt-card';
 import { EventCardWrapperProps } from '@/types/Props';
-import RegisteredEventCard from '@/components/events/registered-event-card';
 import { Box, Container, Stack, useTheme } from '@mui/material';
 import React from 'react';
 
-export default function RegisteredEventCardWrapper(
+export default function BookTicketEventCardWrapper(
   props: EventCardWrapperProps
 ) {
   const theme = useTheme();
@@ -28,15 +28,10 @@ export default function RegisteredEventCardWrapper(
         <Stack spacing={4}>
           {props.data &&
             props.data.map((value) => (
-              <RegisteredEventCard
-                showParticipants={props.showParticipants}
-                eventName={value.name}
-                addParticipants={props.addParticipants}
-              />
+              <BookTicketEventCard eventName={value.name} />
             ))}
         </Stack>
       </Container>
-      {/* TODO: need to add live updates, media and links, will be done in XAP-32 ANND XAP-34 */}
     </Box>
   );
 }

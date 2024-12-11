@@ -12,6 +12,10 @@ import { Box, Snackbar, Slide } from '@mui/material';
 import { useAtom, useAtomValue } from 'jotai/react';
 import { useRef } from 'react';
 
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies(null, { path: '/' });
+
 export default function Home() {
   const heroRef = useRef(null);
   const aboutUsRef = useRef(null);
@@ -21,6 +25,8 @@ export default function Home() {
   const connectRef = useRef(null);
   const [snackBar, setSnackBar] = useAtom(snackBarAtom);
   const snackBarMessage = useAtomValue(snackBarMessageAtom);
+
+  cookies.set('email', 'one1@gmail.com');
 
   const handleClose = () => setSnackBar(false);
 

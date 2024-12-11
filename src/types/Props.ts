@@ -1,9 +1,12 @@
+import { EVENT_TYPE } from '@/enums/Event';
 import { TeamType } from '@/schemas/team';
 
 export type EventCardWrapperProps = {
   data: {
     name: string;
   }[];
+  showParticipants: boolean;
+  addParticipants: boolean;
 };
 
 export type EventCardWrapperVersionTwoProps = {
@@ -25,4 +28,6 @@ export type TeamCardProps = {
 export type CreateTeamFormProps = {
   teams: TeamType[] | undefined;
   setTeam: (team: TeamType[]) => void;
+  teamSize: EVENT_TYPE;
+  totalTeams: number;
 };
