@@ -2,6 +2,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Container,
   Dialog,
   DialogActions,
@@ -11,6 +12,7 @@ import {
   Grid,
   Paper,
   Slide,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -19,7 +21,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import SingleButton from '../button/single-button';
 import { TransitionProps } from '@mui/material/transitions';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -27,6 +29,10 @@ import { RegisteredEventCardProps } from '@/types/RegisteredEventCardProps';
 import TeamCard from '../team/team-card';
 import { EventType } from '@/schemas/event';
 import { fetchEventDetails, fetchTeamDetails } from '@/services/getInternalAPI';
+import { CreateTeamForm } from '../team-form/team-form';
+import { TeamType } from '@/schemas/team';
+import { prepareTeams, validateTeamArray } from '@/utilities/utils';
+import { saveTeams } from '@/services/postInternalAPI';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -39,14 +45,18 @@ const Transition = React.forwardRef(function Transition(
 
 export default function RegisteredEventCard(props: RegisteredEventCardProps) {
   const theme = useTheme();
+  const [teams, setTeams] = useState<TeamType[] | undefined>(undefined);
   const [open, setOpen] = React.useState(false);
   const [eventDetails, setEventDetails] = React.useState<EventType | undefined>(
     undefined
   );
-  // TODO: provide type
-  const [participants, setParticipants] = React.useState(undefined);
+  const [participants, setParticipants] = React.useState<
+    TeamType[] | undefined
+  >(undefined);
   const [participantOpen, setParticipantOpen] = React.useState(false);
+  const [addParticipantOpen, setAddParticipantOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
+  const [snackBar, setSnackBar] = useState<string | undefined>(undefined);
 
   const handleDialogOpen = () => {
     setOpen(true);
@@ -65,15 +75,52 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
   };
 
   const handleShowDetails = async () => {
-    const { data } = await fetchEventDetails(props.eventName);
-    setEventDetails(data);
+    if (!eventDetails) {
+      const { data } = await fetchEventDetails(props.eventName);
+      setEventDetails(data);
+    }
     handleDialogOpen();
   };
 
   const handleShowParticipants = async () => {
     const { data } = await fetchTeamDetails(props.eventName);
-    setParticipants(data);
+    const convertedData = prepareTeams(data);
+    setParticipants(convertedData);
     handleParticipantDialogOpen();
+  };
+
+  const handleAddParticipantsDialogOpen = async () => {
+    if (!eventDetails) {
+      const { data } = await fetchEventDetails(props.eventName);
+      setEventDetails(data);
+    }
+    setAddParticipantOpen(true);
+  };
+
+  const handleAddParticipantsDialogClose = () => {
+    setAddParticipantOpen(false);
+  };
+
+  const handleAddParticipantSave = async () => {
+    if (teams) {
+      const result = validateTeamArray(teams);
+      if (!result.isTeamNameUnique) {
+        setSnackBar('Duplicate team names are not allowed');
+      } else if (!result.isEmailUnique) {
+        setSnackBar(
+          'Duplicate emails found in different teams which are not allowed'
+        );
+      } else {
+        await saveTeams(teams, props.eventName);
+        handleAddParticipantsDialogClose();
+      }
+    } else {
+      setSnackBar('Please add teams');
+    }
+  };
+
+  const handleDelete = (index: number) => {
+    setTeams((prevTeams) => prevTeams?.filter((_, i) => i !== index));
   };
 
   return (
@@ -104,6 +151,14 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
         size="medium"
         handleClick={handleShowDetails}
       />
+      <Snackbar
+        open={snackBar ? true : false}
+        autoHideDuration={5000}
+        onClose={() => setSnackBar(undefined)}
+        message={snackBar}
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        TransitionComponent={Slide}
+      />
       {props.showParticipants && (
         <SingleButton
           buttonText="show participants"
@@ -112,7 +167,14 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
           handleClick={handleShowParticipants}
         />
       )}
-
+      {props.addParticipants && (
+        <SingleButton
+          buttonText="add participants"
+          buttonType="button"
+          size="medium"
+          handleClick={handleAddParticipantsDialogOpen}
+        />
+      )}
       {eventDetails && (
         <Dialog
           open={open}
@@ -229,7 +291,6 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* TODO: add show participants accordian component */}
           </DialogContent>
           <DialogActions>
             <Container
@@ -278,11 +339,10 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
             </Typography>
           </DialogTitle>
           <DialogContent dividers={scroll === 'paper'}>
-            {/* TODO: link with participant object */}
             <Grid container spacing={4}>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
+              {participants.map((participant) => (
                 <Grid item xl={4} lg={4} md={4} sm={4} xs={6}>
-                  <TeamCard />
+                  <TeamCard team={participant} />
                 </Grid>
               ))}
             </Grid>
@@ -297,6 +357,80 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
                 buttonType="button"
                 size="medium"
                 handleClick={handleParticipantDialogClose}
+                styleString="w-full"
+                padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
+                fontSize="16"
+              />
+            </Container>
+          </DialogActions>
+        </Dialog>
+      )}
+      {props.addParticipants && eventDetails && (
+        <Dialog
+          open={addParticipantOpen}
+          TransitionComponent={Transition}
+          onClose={handleAddParticipantsDialogClose}
+          scroll={scroll}
+          fullScreen
+          sx={{
+            '& .MuiDialog-paper': {
+              backgroundColor: theme.palette.background.default,
+              color: theme.palette.text.primary,
+            },
+          }}
+        >
+          <DialogTitle>
+            <Typography
+              variant="body1"
+              align="center"
+              gutterBottom={false}
+              noWrap={false}
+              sx={{
+                color: theme.palette.text.primary,
+                textDecoration: 'none',
+              }}
+            >
+              Save the list after creatig teams!
+            </Typography>
+          </DialogTitle>
+          <DialogContent
+            dividers={scroll === 'paper'}
+            sx={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xl={4} lg={4} md={6} sm={8} xs={12}>
+                <CreateTeamForm
+                  teams={teams}
+                  setTeam={setTeams}
+                  totalTeams={eventDetails.eventDetails.totalSlots}
+                  teamSize={eventDetails.eventDetails.eventType}
+                />
+              </Grid>
+              <Grid item xl={8} lg={8} md={6} sm={4} xs={12}>
+                <Grid container spacing={2} className="scrollable-container">
+                  {teams?.map((team, index) => (
+                    <Grid item lg={6}>
+                      <TeamCard
+                        team={team}
+                        index={index}
+                        onDelete={handleDelete}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Container
+              maxWidth="xs"
+              sx={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <SingleButton
+                buttonText="Save"
+                buttonType="button"
+                size="medium"
+                handleClick={handleAddParticipantSave}
                 styleString="w-full"
                 padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
                 fontSize="16"

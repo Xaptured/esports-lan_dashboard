@@ -2,6 +2,7 @@
 
 import {
   Box,
+  Chip,
   Container,
   Dialog,
   DialogActions,
@@ -44,6 +45,9 @@ export default function ApproveEventCard(props: EventCardProps) {
   const email = cookies.get('email');
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [showSuccessChip, setShowSuccessChip] = React.useState(false);
+  const [showRejectChip, setShowRejectChip] = React.useState(false);
+  const [wrongLaterChip, setWrongLaterChip] = React.useState(false);
   const [eventDetails, setEventDetails] = React.useState<EventType | undefined>(
     undefined
   );
@@ -58,12 +62,30 @@ export default function ApproveEventCard(props: EventCardProps) {
   };
 
   const handleApprove = async () => {
-    await updateTeamStatus(props.eventName, TEAM_STATUS.APPROVED, email);
+    const response = await updateTeamStatus(
+      props.eventName,
+      TEAM_STATUS.APPROVED,
+      email
+    );
+    if (response.data === 'Success') {
+      setShowSuccessChip(true);
+    } else {
+      setWrongLaterChip(true);
+    }
     handleDialogClose();
   };
 
   const handleReject = async () => {
-    await updateTeamStatus(props.eventName, TEAM_STATUS.REJECTED, email);
+    const response = await updateTeamStatus(
+      props.eventName,
+      TEAM_STATUS.REJECTED,
+      email
+    );
+    if (response.data === 'Success') {
+      setShowRejectChip(true);
+    } else {
+      setWrongLaterChip(true);
+    }
     handleDialogClose();
   };
 
@@ -101,22 +123,29 @@ export default function ApproveEventCard(props: EventCardProps) {
         size="medium"
         handleClick={handleShowDetails}
       />
-      <Box
-        sx={{ width: '30%', display: 'flex', justifyContent: 'space-around' }}
-      >
-        <SingleButton
-          buttonText="approve"
-          buttonType="button"
-          size="medium"
-          handleClick={handleApprove}
-        />
-        <SingleButton
-          buttonText="reject"
-          buttonType="button"
-          size="medium"
-          handleClick={handleReject}
-        />
-      </Box>
+      {showSuccessChip && <Chip color="success" label="Approved" />}
+      {showRejectChip && <Chip color="error" label="Rejected" />}
+      {wrongLaterChip && (
+        <Chip color="warning" label="Please try again later" />
+      )}
+      {!(showSuccessChip || showRejectChip || wrongLaterChip) && (
+        <Box
+          sx={{ width: '30%', display: 'flex', justifyContent: 'space-around' }}
+        >
+          <SingleButton
+            buttonText="approve"
+            buttonType="button"
+            size="medium"
+            handleClick={handleApprove}
+          />
+          <SingleButton
+            buttonText="reject"
+            buttonType="button"
+            size="medium"
+            handleClick={handleReject}
+          />
+        </Box>
+      )}
 
       {eventDetails && (
         <Dialog

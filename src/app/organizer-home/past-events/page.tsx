@@ -9,5 +9,11 @@ export default async function PastEvents() {
   const email = cookie.get('email');
 
   const { data } = await fetchPastEventsForOrganizer(email?.value);
-  return <RegisteredEventCardWrapper data={data} />;
+  return (
+    <RegisteredEventCardWrapper
+      data={data}
+      showParticipants={true}
+      addParticipants={false}
+    />
+  );
 }

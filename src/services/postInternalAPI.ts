@@ -2,8 +2,10 @@ import { EVENT_STATUS } from '@/enums/Event';
 import { TEAM_STATUS } from '@/enums/Team';
 import { CredentialsType } from '@/schemas/credentials';
 import { EventType } from '@/schemas/event';
+import { TeamType } from '@/schemas/team';
 import { CustomAxiosResponse } from '@/types/CustomAxiosResponse';
 import { Response } from '@/types/Response';
+import { prepareSaveTeamsPayload } from '@/utilities/utils';
 import axios from 'axios';
 
 export const registerUser = async (userCredential: CredentialsType) => {
@@ -165,16 +167,16 @@ export const saveOrUpdateAudience = async (audience: object) => {
   }
 };
 
-// TODO: add email from cookies
 export const saveOrUpdateEvent = async (
   event: EventType,
-  isUpdate: boolean
+  isUpdate: boolean,
+  email: string
 ) => {
   try {
     const payload = {
       ...event,
       eventStatus: EVENT_STATUS.INACTIVE,
-      email: 'j@gmail.com',
+      email: email,
     };
     const response = await axios.post(
       '/api/organizer/save-update-event?isUpdate=' + isUpdate,
@@ -204,9 +206,10 @@ export const saveOrUpdateEvent = async (
   }
 };
 
-export const saveTeams = async (teams: object[]) => {
+export const saveTeams = async (teams: TeamType[], eventName: string) => {
   try {
-    const response = await axios.post('/api/organizer/save-teams', teams);
+    const payload = prepareSaveTeamsPayload(teams, eventName);
+    const response = await axios.post('/api/organizer/save-teams', payload);
     const { responseBody } = response.data;
     return {
       data: responseBody,

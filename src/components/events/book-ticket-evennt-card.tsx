@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Container,
   Dialog,
@@ -5,6 +7,7 @@ import {
   DialogContent,
   DialogProps,
   DialogTitle,
+  Grid,
   Paper,
   Slide,
   Table,
@@ -21,6 +24,9 @@ import { TransitionProps } from '@mui/material/transitions';
 import { fetchEventDetails, fetchTeamDetails } from '@/services/getInternalAPI';
 import { EventType } from '@/schemas/event';
 import { EventCardProps } from '@/types/Props';
+import { prepareTeams } from '@/utilities/utils';
+import { TeamType } from '@/schemas/team';
+import TeamCard from '../team/team-card';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -37,8 +43,9 @@ export default function BookTicketEventCard(props: EventCardProps) {
   const [eventDetails, setEventDetails] = React.useState<EventType | undefined>(
     undefined
   );
-  // TODO: provide type
-  const [participants, setParticipants] = React.useState(undefined);
+  const [participants, setParticipants] = React.useState<
+    TeamType[] | undefined
+  >(undefined);
   const [participantOpen, setParticipantOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
@@ -66,7 +73,8 @@ export default function BookTicketEventCard(props: EventCardProps) {
 
   const handleShowParticipants = async () => {
     const { data } = await fetchTeamDetails(props.eventName);
-    setParticipants(data);
+    const convertedData = prepareTeams(data);
+    setParticipants(convertedData);
     handleParticipantDialogOpen();
   };
 
@@ -90,7 +98,7 @@ export default function BookTicketEventCard(props: EventCardProps) {
           textDecoration: 'none',
         }}
       >
-        Event Name
+        {props.eventName}
       </Typography>
       <SingleButton
         buttonText="show details"
@@ -246,7 +254,6 @@ export default function BookTicketEventCard(props: EventCardProps) {
           </DialogActions>
         </Dialog>
       )}
-      {/* TODO: map participants */}
       {participants && (
         <Dialog
           open={participantOpen}
@@ -275,11 +282,14 @@ export default function BookTicketEventCard(props: EventCardProps) {
               Participants list
             </Typography>
           </DialogTitle>
-          <DialogContent
-            dividers={scroll === 'paper'}
-            sx={{ display: 'flex', justifyContent: 'center' }}
-          >
-            Participant List
+          <DialogContent dividers={scroll === 'paper'}>
+            <Grid container spacing={4}>
+              {participants.map((participant) => (
+                <Grid item xl={4} lg={4} md={4} sm={4} xs={6}>
+                  <TeamCard team={participant} />
+                </Grid>
+              ))}
+            </Grid>
           </DialogContent>
           <DialogActions>
             <Container

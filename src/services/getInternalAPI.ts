@@ -90,10 +90,42 @@ export const fetchFutureEventsForAudience = async (
   }
 };
 
-export const fetchLiveEventsForAudience = async (email: string) => {
+export const fetchLiveEventsForAudience = async (email: string | undefined) => {
   try {
     const response = await axios.get(
-      '/api/audience/fetch-live-events?email=' + email
+      'http://localhost:3000/api/audience/fetch-live-events?email=' + email
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchUnregisteredEventsForAudience = async (
+  email: string | undefined
+) => {
+  try {
+    const response = await axios.get(
+      'http://localhost:3000/api/audience/fetch-unregistered-events?email=' +
+        email
     );
     const { responseBody } = response.data;
     return {

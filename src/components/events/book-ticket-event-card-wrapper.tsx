@@ -1,12 +1,12 @@
 'use client';
 
-import AdminEventCard from '@/components/events/admin-event-card';
-import { EventCardWrapperVersionThreeProps } from '@/types/Props';
+import BookTicketEventCard from '@/components/events/book-ticket-evennt-card';
+import { EventCardWrapperProps } from '@/types/Props';
 import { Box, Container, Stack, useTheme } from '@mui/material';
 import React from 'react';
 
-export default function AdminEventCardWrapper(
-  props: EventCardWrapperVersionThreeProps
+export default function BookTicketEventCardWrapper(
+  props: EventCardWrapperProps
 ) {
   const theme = useTheme();
   const gridTheme =
@@ -26,9 +26,10 @@ export default function AdminEventCardWrapper(
       ></Box>
       <Container maxWidth="lg">
         <Stack spacing={4}>
-          {props.data.map((value) => (
-            <AdminEventCard eventName={value.name} />
-          ))}
+          {props.data &&
+            props.data.map((value) => (
+              <BookTicketEventCard eventName={value.name} />
+            ))}
         </Stack>
       </Container>
     </Box>

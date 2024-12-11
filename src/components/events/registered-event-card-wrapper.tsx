@@ -29,8 +29,9 @@ export default function RegisteredEventCardWrapper(
           {props.data &&
             props.data.map((value) => (
               <RegisteredEventCard
-                showParticipants={true}
+                showParticipants={props.showParticipants}
                 eventName={value.name}
+                addParticipants={props.addParticipants}
               />
             ))}
         </Stack>

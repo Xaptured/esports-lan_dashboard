@@ -36,6 +36,9 @@ import dayjs from 'dayjs';
 import { CustomDatepicker } from '../ui/custom-datepicker';
 import { TransitionProps } from '@mui/material/transitions';
 import { saveOrUpdateEvent } from '@/services/postInternalAPI';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies(null, { path: '/' });
 
 const LabelInputContainer = ({
   children,
@@ -85,6 +88,7 @@ const PaperComponent: React.FC<PaperProps> = (props) => {
 
 export default function CreateEventForm({ className }: { className: string }) {
   const theme = useTheme();
+  const email = cookies.get('email');
   const router = useRouter();
   const {
     handleSubmit,
@@ -151,7 +155,7 @@ export default function CreateEventForm({ className }: { className: string }) {
   };
 
   const handler: SubmitHandler<EventType> = async (data) => {
-    await saveOrUpdateEvent(data, false);
+    await saveOrUpdateEvent(data, false, email);
     handleDialogOpen();
   };
 
