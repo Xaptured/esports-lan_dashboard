@@ -9,6 +9,7 @@ import { cn } from '@/utilities/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { helpKeys, helpSchema, HelpType } from '@/schemas/help';
+import { saveComments } from '@/services/postInternalAPI';
 
 const LabelInputContainer = ({
   children,
@@ -37,7 +38,7 @@ export default function HelpForm() {
   });
 
   const handler: SubmitHandler<HelpType> = async (data) => {
-    console.log('data: ', data);
+    await saveComments(data);
   };
 
   return (

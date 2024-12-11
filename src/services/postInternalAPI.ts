@@ -2,6 +2,7 @@ import { EVENT_STATUS } from '@/enums/Event';
 import { TEAM_STATUS } from '@/enums/Team';
 import { CredentialsType } from '@/schemas/credentials';
 import { EventType } from '@/schemas/event';
+import { HelpType } from '@/schemas/help';
 import { TeamType } from '@/schemas/team';
 import { CustomAxiosResponse } from '@/types/CustomAxiosResponse';
 import { Response } from '@/types/Response';
@@ -248,6 +249,33 @@ export const updateTeamStatus = async (
         '&email=' +
         email
     );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const saveComments = async (data: HelpType) => {
+  try {
+    const response = await axios.post('/api/comments/save-comments', data);
     const { responseBody } = response.data;
     return {
       data: responseBody,
