@@ -17,7 +17,9 @@ export async function GET(request: NextRequest) {
     );
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      logger.error(`Error occurred while fetching future events for audience.`);
+      logger.error(
+        `Error occurred while fetching unregistered future events for audience.`
+      );
       const statusCode = error.response?.status;
       const responseBody = error.response?.data;
       return NextResponse.json(
@@ -27,7 +29,7 @@ export async function GET(request: NextRequest) {
     } else {
       const err = error as Error;
       logger.error(
-        `Internal server error occurred while fetching future events for audience.`
+        `Internal server error occurred while fetching unregistered future events for audience.`
       );
       return NextResponse.json({ errorBody: err.message }, { status: 500 });
     }
