@@ -1,11 +1,20 @@
 'use client';
 
-import { Box, Card, CardContent, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { title } from 'process';
 import React from 'react';
 import Image from 'next/image';
+import { TeamCardProps } from '@/types/Props';
 
-export default function TeamCard() {
+export default function TeamCard(props: TeamCardProps) {
   const theme = useTheme();
   return (
     <Card sx={{ minWidth: 400, boxShadow: 3, height: 'auto' }}>
@@ -30,9 +39,9 @@ export default function TeamCard() {
             textDecoration: 'none',
           }}
         >
-          Team Name
+          {props.team?.teamName}
         </Typography>
-        {[1, 2, 3, 4].map(() => (
+        {props.team?.teammateEmails.map((email) => (
           <Typography
             variant="body2"
             align="center"
@@ -43,10 +52,25 @@ export default function TeamCard() {
               textDecoration: 'none',
             }}
           >
-            Player Name
+            {email}
           </Typography>
         ))}
       </CardContent>
+      <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+        {props.onDelete && (
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() =>
+              props.onDelete &&
+              props.index !== undefined &&
+              props.onDelete(props.index)
+            }
+          >
+            Delete
+          </Button>
+        )}
+      </CardActions>
     </Card>
   );
 }

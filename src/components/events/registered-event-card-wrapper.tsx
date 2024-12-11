@@ -26,13 +26,20 @@ export default function RegisteredEventCardWrapper(
       ></Box>
       <Container maxWidth="lg">
         <Stack spacing={4}>
-          {props.data &&
+          {/* {props.data &&
             props.data.map((value) => (
               <RegisteredEventCard
                 showParticipants={true}
                 eventName={value.name}
               />
-            ))}
+            ))} */}
+          {[1, 2, 3, 4, 5].map((value) => (
+            <RegisteredEventCard
+              showParticipants={true}
+              eventName="Test"
+              addParticipants={true}
+            />
+          ))}
         </Stack>
       </Container>
       {/* TODO: need to add live updates, media and links, will be done in XAP-32 ANND XAP-34 */}
