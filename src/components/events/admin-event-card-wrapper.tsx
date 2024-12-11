@@ -1,11 +1,13 @@
 'use client';
 
 import AdminEventCard from '@/components/events/admin-event-card';
-import { EventCardWrapperProps } from '@/types/Props';
+import { EventCardWrapperVersionThreeProps } from '@/types/Props';
 import { Box, Container, Stack, useTheme } from '@mui/material';
 import React from 'react';
 
-export default function AdminEventCardWrapper(props: EventCardWrapperProps) {
+export default function AdminEventCardWrapper(
+  props: EventCardWrapperVersionThreeProps
+) {
   const theme = useTheme();
   const gridTheme =
     theme.palette.mode === 'dark'
