@@ -15,6 +15,12 @@ export type EventCardWrapperVersionTwoProps = {
   }[];
 };
 
+export type EventCardWrapperVersionThreeProps = {
+  data: {
+    name: string;
+  }[];
+};
+
 export type EventCardProps = {
   eventName: string;
 };
