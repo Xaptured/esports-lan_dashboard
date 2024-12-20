@@ -26,7 +26,8 @@ export default function Home() {
   const [snackBar, setSnackBar] = useAtom(snackBarAtom);
   const snackBarMessage = useAtomValue(snackBarMessageAtom);
 
-  cookies.set('email', 'one1@gmail.com');
+  // TODO: remove
+  cookies.set('email', 'jk19011999@gmail.com');
 
   const handleClose = () => setSnackBar(false);
 

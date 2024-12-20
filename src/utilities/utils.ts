@@ -2,6 +2,7 @@ import { localDomain } from '@/constants/configuration-constannts';
 import { TeamPayload, TeamType } from '@/schemas/team';
 import { ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { v4 as uuidv4 } from 'uuid';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -105,3 +106,9 @@ export function prepareTeams(teamPayload: TeamPayload[]): TeamType[] {
     teammateEmails: convertedTeam.teamMates.map((teamMate) => teamMate.email),
   }));
 }
+
+export const generateMerchantTransactionID = () => {
+  const shortUUID = uuidv4().replace(/-/g, '').slice(0, 10);
+  const completeUUID = 'MTID' + shortUUID;
+  return completeUUID;
+};

@@ -4,6 +4,7 @@ import { TeamType } from '@/schemas/team';
 export type EventCardWrapperProps = {
   data: {
     name: string;
+    eventStatus?: string;
   }[];
   showParticipants: boolean;
   addParticipants: boolean;

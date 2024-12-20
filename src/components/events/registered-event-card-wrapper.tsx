@@ -31,6 +31,7 @@ export default function RegisteredEventCardWrapper(
               <RegisteredEventCard
                 showParticipants={props.showParticipants}
                 eventName={value.name}
+                eventStatus={value.eventStatus}
                 addParticipants={props.addParticipants}
               />
             ))}

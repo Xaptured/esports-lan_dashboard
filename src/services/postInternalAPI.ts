@@ -1,12 +1,16 @@
 import { EVENT_STATUS } from '@/enums/Event';
 import { TEAM_STATUS } from '@/enums/Team';
+import { AudienceType } from '@/schemas/audience';
 import { CredentialsType } from '@/schemas/credentials';
 import { EventType } from '@/schemas/event';
 import { HelpType } from '@/schemas/help';
 import { TeamType } from '@/schemas/team';
 import { CustomAxiosResponse } from '@/types/CustomAxiosResponse';
 import { Response } from '@/types/Response';
-import { prepareSaveTeamsPayload } from '@/utilities/utils';
+import {
+  generateMerchantTransactionID,
+  prepareSaveTeamsPayload,
+} from '@/utilities/utils';
 import axios from 'axios';
 
 export const registerUser = async (userCredential: CredentialsType) => {
@@ -282,6 +286,37 @@ export const saveComments = async (data: HelpType) => {
       message: undefined,
       errorMessage: undefined,
     } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const payAmount = async (
+  data: AudienceType,
+  amount: number,
+  eventName: string
+) => {
+  try {
+    const payload = {
+      name: data.name,
+      phoneNumber: data.phoneNumber,
+      amount: amount,
+      eventName: eventName,
+    };
+    return await axios.post('/api/payment/pay', payload);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const { errorBody } = error.response?.data;
