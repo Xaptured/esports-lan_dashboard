@@ -1,4 +1,7 @@
+'use client';
+
 import AudienceNavBar from '@/components/navigation-bar/audience-nav-bar';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 export default function layout({
@@ -6,9 +9,13 @@ export default function layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathName = usePathname();
+  console.log(pathName);
+
   return (
     <>
-      <AudienceNavBar />
+      {pathName !== '/audience-home/payment-status' && <AudienceNavBar />}
+
       <div>{children}</div>
     </>
   );

@@ -1,14 +1,17 @@
 'use client';
 
 import {
+  Box,
   Container,
   Dialog,
   DialogActions,
   DialogContent,
+  DialogContentText,
   DialogProps,
   DialogTitle,
   Grid,
   Paper,
+  PaperProps,
   Slide,
   Table,
   TableBody,
@@ -27,6 +30,7 @@ import { EventCardProps } from '@/types/Props';
 import { prepareTeams } from '@/utilities/utils';
 import { TeamType } from '@/schemas/team';
 import TeamCard from '../team/team-card';
+import AudienceForm from '../audience-form/audience-form';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -36,6 +40,29 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+const PaperComponent: React.FC<PaperProps> = (props) => {
+  return (
+    <Paper
+      {...props}
+      sx={{
+        background: 'transparent',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+      variant="outlined"
+      className="backdrop-blur-md w-full h-full"
+    >
+      <Paper
+        {...props}
+        sx={{ width: '40%', height: 'auto' }}
+        variant="outlined"
+        className="backdrop-blur-xl"
+      />
+    </Paper>
+  );
+};
 
 export default function BookTicketEventCard(props: EventCardProps) {
   const theme = useTheme();
@@ -48,6 +75,7 @@ export default function BookTicketEventCard(props: EventCardProps) {
   >(undefined);
   const [participantOpen, setParticipantOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
+  const [bookOpen, setBookOpen] = React.useState(false);
 
   const handleDialogOpen = () => {
     setOpen(true);
@@ -65,6 +93,14 @@ export default function BookTicketEventCard(props: EventCardProps) {
     setParticipantOpen(false);
   };
 
+  const handleBookTicketDialogOpen = () => {
+    setBookOpen(true);
+  };
+
+  const handleBookTicketDialogClose = () => {
+    setBookOpen(false);
+  };
+
   const handleShowDetails = async () => {
     const { data } = await fetchEventDetails(props.eventName);
     setEventDetails(data);
@@ -76,6 +112,14 @@ export default function BookTicketEventCard(props: EventCardProps) {
     const convertedData = prepareTeams(data);
     setParticipants(convertedData);
     handleParticipantDialogOpen();
+  };
+
+  const handleBookTickets = async () => {
+    if (!eventDetails) {
+      const { data } = await fetchEventDetails(props.eventName);
+      setEventDetails(data);
+    }
+    handleBookTicketDialogOpen();
   };
 
   return (
@@ -116,7 +160,7 @@ export default function BookTicketEventCard(props: EventCardProps) {
         buttonText="book tickets"
         buttonType="button"
         size="medium"
-        handleClick={handleDialogOpen}
+        handleClick={handleBookTickets}
       />
 
       {eventDetails && (
@@ -309,6 +353,33 @@ export default function BookTicketEventCard(props: EventCardProps) {
           </DialogActions>
         </Dialog>
       )}
+      <Dialog
+        open={bookOpen}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleBookTicketDialogClose}
+        PaperComponent={PaperComponent}
+      >
+        <DialogTitle>
+          <Typography
+            variant="body1"
+            align="center"
+            gutterBottom={false}
+            noWrap={false}
+            sx={{
+              color: theme.palette.text.primary,
+              textDecoration: 'none',
+            }}
+          >
+            Book your ticket!
+          </Typography>
+        </DialogTitle>
+        <Box className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent mt-2 h-[1px] w-full" />
+        <DialogContent>
+          {/* TODO: add real ticket cost */}
+          <AudienceForm amount={1000} eventName={props.eventName} />
+        </DialogContent>
+      </Dialog>
     </Paper>
   );
 }
