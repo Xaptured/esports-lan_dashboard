@@ -17,16 +17,10 @@ function getColor(status: string | null) {
   return 'cyan';
 }
 
-function ChildComponent() {
+export default function PaymentStatus() {
   const searchParams = useSearchParams();
   const status = searchParams.get('status');
   const color = getColor(status);
 
   return <PaymentStatusWithLamp status={status} color={color} />;
-}
-
-export default function PaymentStatus() {
-  <Suspense>
-    <ChildComponent />
-  </Suspense>;
 }

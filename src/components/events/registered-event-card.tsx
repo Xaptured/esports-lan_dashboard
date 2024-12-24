@@ -146,51 +146,38 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
       >
         {props.eventName}
       </Typography>
-      {props.eventStatus && props.eventStatus !== 'INACTIVE' && (
-        <>
+      <>
+        <SingleButton
+          buttonText="show details"
+          buttonType="button"
+          size="medium"
+          handleClick={handleShowDetails}
+        />
+        <Snackbar
+          open={snackBar ? true : false}
+          autoHideDuration={5000}
+          onClose={() => setSnackBar(undefined)}
+          message={snackBar}
+          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+          TransitionComponent={Slide}
+        />
+        {props.showParticipants && (
           <SingleButton
-            buttonText="show details"
+            buttonText="show participants"
             buttonType="button"
             size="medium"
-            handleClick={handleShowDetails}
+            handleClick={handleShowParticipants}
           />
-          <Snackbar
-            open={snackBar ? true : false}
-            autoHideDuration={5000}
-            onClose={() => setSnackBar(undefined)}
-            message={snackBar}
-            anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-            TransitionComponent={Slide}
+        )}
+        {props.addParticipants && (
+          <SingleButton
+            buttonText="add participants"
+            buttonType="button"
+            size="medium"
+            handleClick={handleAddParticipantsDialogOpen}
           />
-          {props.showParticipants && (
-            <SingleButton
-              buttonText="show participants"
-              buttonType="button"
-              size="medium"
-              handleClick={handleShowParticipants}
-            />
-          )}
-          {props.addParticipants && (
-            <SingleButton
-              buttonText="add participants"
-              buttonType="button"
-              size="medium"
-              handleClick={handleAddParticipantsDialogOpen}
-            />
-          )}
-        </>
-      )}
-      {props.eventStatus && props.eventStatus === 'INACTIVE' && (
-        <Chip
-          color="warning"
-          label="Pending"
-          variant="outlined"
-          sx={{
-            fontSize: '1.2rem',
-            padding: '0 8px',
-          }}
-        />
-      )}
+        )}
+      </>
 
       {eventDetails && (
         <Dialog
