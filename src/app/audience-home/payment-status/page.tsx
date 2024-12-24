@@ -1,8 +1,4 @@
-'use client';
-
 import PaymentStatusWithLamp from '@/components/payment-status/payment-status';
-import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
 
 function getColor(status: string | null) {
   if (status && status === 'SUCCESS') {
@@ -17,9 +13,12 @@ function getColor(status: string | null) {
   return 'cyan';
 }
 
-export default function PaymentStatus() {
-  const searchParams = useSearchParams();
-  const status = searchParams.get('status');
+export default function PaymentStatus({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string };
+}) {
+  const { status } = searchParams;
   const color = getColor(status);
 
   return <PaymentStatusWithLamp status={status} color={color} />;
