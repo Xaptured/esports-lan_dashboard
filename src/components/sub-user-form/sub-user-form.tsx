@@ -1,19 +1,13 @@
-'use client';
-
-import { audienceKeys, audienceSchema, AudienceType } from '@/schemas/audience';
-import { cn } from '@/utilities/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Typography, useTheme } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import Cookies from 'universal-cookie';
 import { Label } from '@radix-ui/react-label';
+import React from 'react';
 import { CustomInput } from '../ui/custom-input';
-import CenterButton from '../button/center-button';
-import { payAmount } from '@/services/postInternalAPI';
-
-const cookies = new Cookies(null, { path: '/' });
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { subUserKeys, subUserSchema, SubUserType } from '@/schemas/sub-user';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { cn } from '@/utilities/utils';
+import { registerSubUser } from '@/services/postInternalAPI';
+import NavigationButtons from '../button/navigation-buttons';
 
 const LabelInputContainer = ({
   children,
@@ -29,28 +23,31 @@ const LabelInputContainer = ({
   );
 };
 
-export default function AudienceForm(props: {
-  amount: number;
+export default function SubUserForm({
+  eventName,
+  dialogClose,
+}: {
   eventName: string;
+  dialogClose: () => void;
 }) {
   const theme = useTheme();
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<AudienceType>({
-    resolver: zodResolver(audienceSchema),
+  } = useForm<SubUserType>({
+    resolver: zodResolver(subUserSchema),
   });
   const [loading, setLoading] = React.useState<boolean>(false);
-  const handler: SubmitHandler<AudienceType> = async (data) => {
-    const response = await payAmount(data, props.amount, props.eventName);
-    window.location.href = response.data.redirectURL;
+  const handler: SubmitHandler<SubUserType> = async (data) => {
+    await registerSubUser(data, eventName);
+    dialogClose();
   };
   return (
     <Box className="max-w-md w-full mx-auto  p-4 md:p-8 ">
       <form className="my-2" onSubmit={handleSubmit(handler)}>
         <LabelInputContainer className="mb-8">
-          <Label htmlFor={audienceKeys.name}>
+          <Label htmlFor={subUserKeys.name}>
             <Typography
               variant="body2"
               align="left"
@@ -65,17 +62,17 @@ export default function AudienceForm(props: {
             </Typography>
           </Label>
           <CustomInput
-            id={audienceKeys.name}
+            id={subUserKeys.name}
             placeholder="name"
             type="text"
-            name={audienceKeys.name}
+            name={subUserKeys.name}
             control={control}
             error={errors.name?.message ? true : false}
             helperText={errors.name?.message}
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-12">
-          <Label htmlFor={audienceKeys.phoneNumber}>
+          <Label htmlFor={subUserKeys.email}>
             <Typography
               variant="body2"
               align="left"
@@ -86,28 +83,40 @@ export default function AudienceForm(props: {
                 textDecoration: 'none',
               }}
             >
-              Phone number
+              Email
             </Typography>
           </Label>
           <CustomInput
-            id={audienceKeys.phoneNumber}
-            placeholder="phone number"
-            type="text"
-            name={audienceKeys.phoneNumber}
+            id={subUserKeys.email}
+            placeholder="Email"
+            type="email"
+            name={subUserKeys.email}
             control={control}
-            error={errors.phoneNumber?.message ? true : false}
-            helperText={errors.phoneNumber?.message}
+            error={errors.email?.message ? true : false}
+            helperText={errors.email?.message}
           />
         </LabelInputContainer>
-        <CenterButton
+        {/* <CenterButton
           buttonType="submit"
-          buttonText="Book ticket"
+          buttonText="Create user"
           size="large"
           styleString="w-full"
           icon={false}
           padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
           fontSize="16"
           isLoading={loading}
+        /> */}
+        <NavigationButtons
+          nextButtonType="submit"
+          prevButtonType="button"
+          nextButtonText="Create user"
+          prevButtonText="cancel"
+          size="small"
+          styleString="w-full"
+          padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
+          fontSize="16"
+          handlePrevClick={dialogClose}
+          gridContainerMarginTop="mt-1"
         />
       </form>
     </Box>

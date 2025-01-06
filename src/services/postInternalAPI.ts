@@ -4,6 +4,7 @@ import { AudienceType } from '@/schemas/audience';
 import { CredentialsType } from '@/schemas/credentials';
 import { EventType } from '@/schemas/event';
 import { HelpType } from '@/schemas/help';
+import { SubUserType } from '@/schemas/sub-user';
 import { TeamType } from '@/schemas/team';
 import { CustomAxiosResponse } from '@/types/CustomAxiosResponse';
 import { Response } from '@/types/Response';
@@ -182,6 +183,7 @@ export const saveOrUpdateEvent = async (
       ...event,
       eventStatus: EVENT_STATUS.INACTIVE,
       email: email,
+      startCheckInProcess: false,
     };
     const response = await axios.post(
       '/api/organizer/save-update-event?isUpdate=' + isUpdate,
@@ -332,5 +334,46 @@ export const payAmount = async (
         errorMessage: 'Something went wromg. Please try again later.',
       } as Response;
     }
+  }
+};
+
+export const registerSubUser = async (
+  subUser: SubUserType,
+  eventName: string
+) => {
+  try {
+    const payload = {
+      ...subUser,
+      eventName,
+    };
+    await axios.post('/api/organizer/save-sub-user', payload);
+    return {
+      data: undefined,
+      message: 'Email Sent!',
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    return {
+      data: undefined,
+      message: undefined,
+      errorMessage: 'Something went wromg. Please try again later.',
+    } as Response;
+  }
+};
+
+export const startCheckInProcess = async (eventName: string) => {
+  try {
+    await axios.post('/api/organizer/start-check-in?eventName=' + eventName);
+    return {
+      data: undefined,
+      message: 'Started!',
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    return {
+      data: undefined,
+      message: undefined,
+      errorMessage: 'Something went wromg. Please try again later.',
+    } as Response;
   }
 };
