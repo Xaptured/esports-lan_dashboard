@@ -1,10 +1,10 @@
 import { EVENT_STATUS } from '@/enums/Event';
 import { TEAM_STATUS } from '@/enums/Team';
-import { AudienceType } from '@/schemas/audience';
+import { AudienceType, AudienceVerifyType } from '@/schemas/audience';
 import { CredentialsType } from '@/schemas/credentials';
 import { EventType } from '@/schemas/event';
 import { HelpType } from '@/schemas/help';
-import { SubUserType } from '@/schemas/sub-user';
+import { SubUserLoginType, SubUserType } from '@/schemas/sub-user';
 import { TeamType } from '@/schemas/team';
 import { CustomAxiosResponse } from '@/types/CustomAxiosResponse';
 import { Response } from '@/types/Response';
@@ -375,5 +375,109 @@ export const startCheckInProcess = async (eventName: string) => {
       message: undefined,
       errorMessage: 'Something went wromg. Please try again later.',
     } as Response;
+  }
+};
+
+export const verifySubUser = async (subUser: SubUserLoginType) => {
+  try {
+    const { data } = await axios.post('/api/verify-sub-user', subUser);
+    return {
+      data: data.responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      if (
+        errorBody.httpStatus === 'BAD_REQUEST' &&
+        errorBody.message ===
+          "Got exception while fetching sub user by username: Username doesn't exist"
+      ) {
+        return {
+          data: errorBody,
+          message: undefined,
+          errorMessage: "Username doesn't exist",
+        } as Response;
+      } else if (
+        errorBody.httpStatus === 'BAD_REQUEST' &&
+        errorBody.message === "Username doesn't activated yet"
+      ) {
+        return {
+          data: errorBody,
+          message: undefined,
+          errorMessage: "Username doesn't activated yet.",
+        } as Response;
+      } else {
+        return {
+          data: undefined,
+          message: undefined,
+          errorMessage: 'Something went wromg. Please try again later.',
+        } as Response;
+      }
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const verifyAudienceTicket = async (
+  audienceVerify: AudienceVerifyType,
+  eventName: string
+) => {
+  try {
+    const payload = {
+      ...audienceVerify,
+      eventName,
+    };
+    const { data } = await axios.post(
+      '/api/organizer/verify-audience',
+      payload
+    );
+    return {
+      data: data.result,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      if (
+        errorBody.httpStatus === 'BAD_REQUEST' &&
+        errorBody.message === 'User already checked in'
+      ) {
+        return {
+          data: errorBody,
+          message: undefined,
+          errorMessage: 'User already checked in',
+        } as Response;
+      } else if (
+        errorBody.httpStatus === 'BAD_REQUEST' &&
+        errorBody.message ===
+          "Got exception while fetching audience ticket details: Details doesn't exist"
+      ) {
+        return {
+          data: errorBody,
+          message: undefined,
+          errorMessage: "Details doesn't exist.",
+        } as Response;
+      } else {
+        return {
+          data: undefined,
+          message: undefined,
+          errorMessage: 'Something went wromg. Please try again later.',
+        } as Response;
+      }
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
   }
 };

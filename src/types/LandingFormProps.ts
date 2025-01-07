@@ -1,4 +1,4 @@
 export type LandingFormProps = {
-    buttonText: string;
-    isRegister: boolean;
-}
+  buttonText: string;
+  isRegister: boolean;
+};

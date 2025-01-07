@@ -56,7 +56,7 @@ export default function Partners() {
         <Box>
           <Grid container spacing={6} sx={{ padding: '4%' }}>
             {GAMES.map((game) => (
-              <Grid item xl={3} lg={4} md={6}>
+              <Grid item xl={3} lg={3} md={6}>
                 <CustomBackgroundGradient
                   name={game.name}
                   description={game.description}

@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { LandingForm } from './landing-form';
+import { LandingSubUserForm } from './sub-user-form';
 
 export default function LandingForms() {
   const theme = useTheme();
@@ -44,14 +45,14 @@ export default function LandingForms() {
         </Typography>
         <Grid
           container
-          spacing={12}
+          spacing={2}
           justifyContent="center"
           alignItems="center"
           sx={{
-            padding: '3%',
+            padding: '2%',
           }}
         >
-          <Grid item xl={6} lg={6}>
+          <Grid item xl={4} lg={4}>
             <Paper
               elevation={24}
               sx={{ background: 'transparent', padding: '3%' }}
@@ -87,7 +88,43 @@ export default function LandingForms() {
               <LandingForm buttonText="Login" isRegister={false} />
             </Paper>
           </Grid>
-          <Grid item xl={6} lg={6}>
+          <Grid item xl={4} lg={4}>
+            <Paper
+              elevation={24}
+              sx={{ background: 'transparent', padding: '3%' }}
+              variant="outlined"
+              className="backdrop-blur-sm"
+            >
+              <Typography
+                variant="body1"
+                align="center"
+                gutterBottom={false}
+                noWrap={false}
+                sx={{
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                A part of Organizer's team?
+              </Typography>
+
+              <Typography
+                variant="body1"
+                align="center"
+                gutterBottom={false}
+                noWrap={false}
+                sx={{
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                Use your username and password to login as sub user.
+              </Typography>
+              <Box className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent mt-8 h-[1px] w-full" />
+              <LandingSubUserForm />
+            </Paper>
+          </Grid>
+          <Grid item xl={4} lg={4}>
             <Paper
               elevation={24}
               sx={{ background: 'transparent', padding: '3%' }}
