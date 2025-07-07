@@ -481,3 +481,25 @@ export const verifyAudienceTicket = async (
     }
   }
 };
+
+export const updateFeedback = async (email: string) => {
+  try {
+    const payload = {
+      email: email,
+      date: '',
+      flag: false,
+    };
+    await axios.post('/api/feedback/update-feedback', payload);
+    return {
+      data: undefined,
+      message: 'Successfully updated',
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    return {
+      data: undefined,
+      message: undefined,
+      errorMessage: 'Something went wromg. Please try again later.',
+    } as Response;
+  }
+};

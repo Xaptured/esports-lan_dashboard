@@ -25,7 +25,15 @@ const LabelInputContainer = ({
   );
 };
 
-export default function HelpForm() {
+export type HelpFormProps = {
+  isFeedback: boolean;
+  handleSubmitOrClose?: () => void;
+};
+
+export default function HelpForm({
+  isFeedback,
+  handleSubmitOrClose,
+}: HelpFormProps) {
   const theme = useTheme();
   const [loading, setLoading] = React.useState<boolean>(false);
   const {
@@ -38,6 +46,9 @@ export default function HelpForm() {
   });
 
   const handler: SubmitHandler<HelpType> = async (data) => {
+    if (handleSubmitOrClose) {
+      handleSubmitOrClose();
+    }
     await saveComments(data);
   };
 
@@ -81,12 +92,12 @@ export default function HelpForm() {
                 textDecoration: 'none',
               }}
             >
-              Query
+              {isFeedback ? 'Feedback' : 'Query'}
             </Typography>
           </Label>
           <CustomInput
             id="query"
-            placeholder="Your query/concern"
+            placeholder={isFeedback ? 'Your feedback' : 'Your query/concern'}
             type="text"
             name={helpKeys.query}
             control={control}

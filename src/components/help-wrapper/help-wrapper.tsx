@@ -83,7 +83,7 @@ export default function HelpWrapper() {
           Then send us an email!
         </Typography>
         <Box className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent mt-8 h-[1px] w-full" />
-        <HelpForm />
+        <HelpForm isFeedback={false} />
         <Typography
           variant="body1"
           align="center"
