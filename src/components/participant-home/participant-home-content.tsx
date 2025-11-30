@@ -25,6 +25,8 @@ import { TransitionProps } from '@mui/material/transitions';
 import HelpForm from '@/components/help-form/help-form';
 import AdvertisementWrapper from '@/components/advertisement/advertisement-wrapper';
 import { Advertisement } from '@/schemas/advertisement';
+import { DottedGlowBackground } from '@/components/ui/dotted-glow-background';
+import { CustomInfiniteMovingCard } from '../partners/custom-infinite-moving-card';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -179,7 +181,40 @@ export default function ParticipantHomeContent({
           />
         </DialogContent>
       </Dialog>
-      <AdvertisementWrapper ads={ads} />
+      <Box className="relative w-full flex items-center justify-center py-5 mt-10">
+        <DottedGlowBackground
+          className="absolute inset-0 pointer-events-none mask-radial-to-90% mask-radial-at-center"
+          opacity={0.5}
+          gap={20}
+          radius={1}
+          color="#9ca3af"
+          glowColor="#9ca3af"
+          colorLightVar="--color-gray-400"
+          glowColorLightVar="--color-gray-400"
+          colorDarkVar="--color-gray-400"
+          glowColorDarkVar="--color-gray-400"
+          backgroundOpacity={0}
+          speedMin={0.3}
+          speedMax={1.6}
+          speedScale={1}
+        />
+        <Box className="relative z-10 w-full max-w-8xl">
+          <Typography
+            variant="h2"
+            align="center"
+            gutterBottom={false}
+            noWrap={false}
+            sx={{
+              color: theme.palette.text.primary,
+              textDecoration: 'none',
+            }}
+          >
+            Advertisers and Sponsors
+          </Typography>
+          <AdvertisementWrapper ads={ads} />
+          <CustomInfiniteMovingCard />
+        </Box>
+      </Box>
     </Box>
   );
 }
