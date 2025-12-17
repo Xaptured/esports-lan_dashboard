@@ -12,7 +12,7 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^3.9.0",
-    "@mui/icons-material": "^5.18.0",
+    "@mui/icons-material": "^7.3.6",
     "@mui/material": "^5.16.7",
     "@mui/x-date-pickers": "^7.22.1",
     "@radix-ui/react-label": "^2.1.0",
