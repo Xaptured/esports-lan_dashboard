@@ -29,12 +29,14 @@ export type UseLiveUpdatesResult = {
 const MAX_ITEMS = 7;
 
 type UseLiveUpdatesOptions = {
+  eventName: string;
   autoConnect?: boolean;
 };
 
 export default function useLiveUpdates({
   autoConnect = true,
-}: UseLiveUpdatesOptions = {}): UseLiveUpdatesResult {
+  eventName,
+}: UseLiveUpdatesOptions): UseLiveUpdatesResult {
   const [schedule, setSchedule] = useState<LiveUpdateDto[]>([]);
   const [results, setResults] = useState<LiveUpdateDto[]>([]);
   const [awards, setAwards] = useState<LiveUpdateDto[]>([]);
@@ -91,6 +93,7 @@ export default function useLiveUpdates({
     setResultsError,
     setAwardsError,
     normalize,
+    eventName,
   });
 
   const { isConnected, connect, disconnect, pushTest } = useLiveUpdatesSocket({

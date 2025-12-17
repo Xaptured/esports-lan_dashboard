@@ -8,9 +8,10 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const category = searchParams.get('category');
     const limit = searchParams.get('limit');
+    const tournamentName = searchParams.get('tournamentName');
 
     const url = domainProvider(
-      `live-updates?category=${category}&limit=${limit}`
+      `live-updates?category=${category}&limit=${limit}&tournamentName=${tournamentName}`
     );
     const response = await axios.get(url);
 

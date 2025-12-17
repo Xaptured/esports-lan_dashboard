@@ -15,14 +15,13 @@ import {
   Divider,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import CenterButton from '../button/center-button';
 
 const PanelItem: React.FC<{ item: LiveUpdateDto }> = ({ item }) => {
   return (
     <ListItem alignItems="flex-start" sx={{ borderBottom: '1px solid #eee' }}>
       <ListItemText
         primary={
-          <Typography variant="body1" component="div">
+          <Typography variant="subtitle2" component="div">
             {item.title}
           </Typography>
         }
@@ -31,7 +30,7 @@ const PanelItem: React.FC<{ item: LiveUpdateDto }> = ({ item }) => {
             {item.message && (
               <Typography
                 component="span"
-                variant="body2"
+                variant="caption"
                 color="text.primary"
                 display="block"
               >
@@ -48,16 +47,22 @@ const PanelItem: React.FC<{ item: LiveUpdateDto }> = ({ item }) => {
   );
 };
 
-const Section: React.FC<{ title: string; items: LiveUpdateDto[] }> = ({
-  title,
-  items,
-}) => (
+const Section: React.FC<{
+  title: string;
+  items: LiveUpdateDto[];
+  error?: string;
+}> = ({ title, items, error }) => (
   <Box sx={{ mb: 2 }}>
-    <Typography variant="h6" sx={{ px: 2, py: 1, fontWeight: 'bold' }}>
+    <Typography variant="subtitle1" sx={{ px: 2, py: 1, fontWeight: 'bold' }}>
       {title} ({items.length})
     </Typography>
     <List dense>
-      {items.length === 0 && (
+      {error && (
+        <Typography color="error" variant="caption" sx={{ px: 2 }}>
+          Something went wrong. Please try again later.
+        </Typography>
+      )}
+      {items.length === 0 && !error && (
         <ListItem>
           <ListItemText secondary="No updates" />
         </ListItem>
@@ -70,7 +75,15 @@ const Section: React.FC<{ title: string; items: LiveUpdateDto[] }> = ({
   </Box>
 );
 
-const LiveUpdatesPanel = () => {
+const LiveUpdatesPanel = ({
+  open,
+  setOpen,
+  eventName,
+}: {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  eventName: string;
+}) => {
   const {
     schedule,
     results,
@@ -80,24 +93,18 @@ const LiveUpdatesPanel = () => {
     scheduleError,
     resultsError,
     awardsError,
-  } = useLiveUpdates({
-    autoConnect: true,
-  });
-  const [open, setOpen] = useState(false);
-
-  const total = schedule.length + results.length + awards.length;
-
+  } = useLiveUpdates({ eventName, autoConnect: true });
+  console.log('Schedule Error', scheduleError);
+  console.log('Results Error', resultsError);
+  console.log('Awards Error', awardsError);
   return (
     <React.Fragment>
-      <CenterButton
-        buttonText="Live Updates"
-        size="large"
-        icon={false}
-        buttonType="button"
-        handleClick={() => setOpen(true)}
-      />
-
-      <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
+      <Drawer
+        anchor="right"
+        open={open}
+        onClose={() => setOpen(false)}
+        sx={{ zIndex: 1400 }}
+      >
         <Box sx={{ width: 360, p: 2 }} role="presentation">
           <Box
             sx={{
@@ -107,7 +114,7 @@ const LiveUpdatesPanel = () => {
               mb: 2,
             }}
           >
-            <Typography variant="h5">Live Updates</Typography>
+            <Typography variant="body1">Live Updates</Typography>
             <Box display="flex" alignItems="center">
               <Typography
                 variant="caption"
@@ -125,40 +132,11 @@ const LiveUpdatesPanel = () => {
             </Box>
           </Box>
 
-          {errorMessage && (
-            <Box
-              sx={{
-                p: 2,
-                bgcolor: '#ffebee',
-                color: '#c62828',
-                borderRadius: 1,
-                mb: 2,
-              }}
-            >
-              <Typography variant="body2">{errorMessage}</Typography>
-            </Box>
-          )}
+          <Section title="Results" items={results} error={resultsError} />
 
-          <Section title="Results" items={results} />
-          {resultsError && (
-            <Typography color="error" variant="caption" sx={{ px: 2 }}>
-              {resultsError}
-            </Typography>
-          )}
+          <Section title="Schedule" items={schedule} error={scheduleError} />
 
-          <Section title="Schedule" items={schedule} />
-          {scheduleError && (
-            <Typography color="error" variant="caption" sx={{ px: 2 }}>
-              {scheduleError}
-            </Typography>
-          )}
-
-          <Section title="Awards" items={awards} />
-          {awardsError && (
-            <Typography color="error" variant="caption" sx={{ px: 2 }}>
-              {awardsError}
-            </Typography>
-          )}
+          <Section title="Awards" items={awards} error={awardsError} />
         </Box>
       </Drawer>
     </React.Fragment>

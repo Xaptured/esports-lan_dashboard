@@ -2,6 +2,7 @@ import { EVENT_STATUS } from '@/enums/Event';
 import { TEAM_STATUS } from '@/enums/Team';
 import { AudienceType, AudienceVerifyType } from '@/schemas/audience';
 import { CredentialsType } from '@/schemas/credentials';
+import { LiveUpdatesType } from '@/schemas/live-updates';
 import { EventType } from '@/schemas/event';
 import { HelpType } from '@/schemas/help';
 import { SubUserLoginType, SubUserType } from '@/schemas/sub-user';
@@ -501,5 +502,32 @@ export const updateFeedback = async (email: string) => {
       message: undefined,
       errorMessage: 'Something went wromg. Please try again later.',
     } as Response;
+  }
+};
+
+export const saveLiveUpdate = async (data: LiveUpdatesType) => {
+  try {
+    const response = await axios.post('/api/organizer/live-updates', data);
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: 'Successfully saved',
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody?.message || 'Failed to save',
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
   }
 };

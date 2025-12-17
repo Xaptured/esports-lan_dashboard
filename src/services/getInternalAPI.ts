@@ -453,10 +453,14 @@ export const fetchAdvertisementDetails = async () => {
   }
 };
 
-export const fetchLiveUpdates = async (category: string, limit: number) => {
+export const fetchLiveUpdates = async (
+  category: string,
+  limit: number,
+  eventName: string
+) => {
   try {
     const response = await axios.get(
-      `/api/live-updates?category=${category}&limit=${limit}`
+      `/api/live-updates?category=${category}&limit=${limit}&tournamentName=${eventName}`
     );
     const { responseBody } = response.data;
     return {

@@ -18,9 +18,9 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 
 function routeToHomePage(role: ROLE, router: AppRouterInstance) {
   if (role === ROLE.PARTICIPANT) {
-    router.push('organizer-home');
-  } else if (role === ROLE.ORGANIZER) {
     router.push('participant-home');
+  } else if (role === ROLE.ORGANIZER) {
+    router.push('organizer-home');
   } else if (role === ROLE.AUDIENCE) {
     router.push('audience-home');
   } else {

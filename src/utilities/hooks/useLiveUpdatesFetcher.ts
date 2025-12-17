@@ -12,6 +12,7 @@ type UseLiveUpdatesFetcherProps = {
   setResultsError: React.Dispatch<React.SetStateAction<string | undefined>>;
   setAwardsError: React.Dispatch<React.SetStateAction<string | undefined>>;
   normalize: (raw: any) => LiveUpdateDto;
+  eventName: string;
 };
 
 export default function useLiveUpdatesFetcher({
@@ -22,6 +23,7 @@ export default function useLiveUpdatesFetcher({
   setResultsError,
   setAwardsError,
   normalize,
+  eventName,
 }: UseLiveUpdatesFetcherProps) {
   useEffect(() => {
     const fetchType = async (
@@ -29,7 +31,7 @@ export default function useLiveUpdatesFetcher({
       setter: React.Dispatch<React.SetStateAction<LiveUpdateDto[]>>,
       errorSetter: React.Dispatch<React.SetStateAction<string | undefined>>
     ) => {
-      const response = await fetchLiveUpdates(type, MAX_ITEMS);
+      const response = await fetchLiveUpdates(type, MAX_ITEMS, eventName);
       if (response.errorMessage) {
         errorSetter(
           `Failed to fetch live updates for ${type}: ${response.errorMessage}`
