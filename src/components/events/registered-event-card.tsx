@@ -25,7 +25,6 @@ import {
 import React, { useState } from 'react';
 import SingleButton from '../button/single-button';
 import { TransitionProps } from '@mui/material/transitions';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { RegisteredEventCardProps } from '@/types/RegisteredEventCardProps';
 import TeamCard from '../team/team-card';
 import { EventType } from '@/schemas/event';
@@ -34,6 +33,8 @@ import { CreateTeamForm } from '../team-form/team-form';
 import { TeamType } from '@/schemas/team';
 import { prepareTeams, validateTeamArray } from '@/utilities/utils';
 import { saveTeams } from '@/services/postInternalAPI';
+import LiveUpdatesPanel from '../live-updates-panel/LiveUpdatesPanel';
+import { usePathname } from 'next/navigation';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -46,6 +47,7 @@ const Transition = React.forwardRef(function Transition(
 
 export default function RegisteredEventCard(props: RegisteredEventCardProps) {
   const theme = useTheme();
+  const pathName = usePathname();
   const [teams, setTeams] = useState<TeamType[] | undefined>(undefined);
   const [open, setOpen] = React.useState(false);
   const [eventDetails, setEventDetails] = React.useState<EventType | undefined>(
@@ -58,6 +60,7 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
   const [addParticipantOpen, setAddParticipantOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
   const [snackBar, setSnackBar] = useState<string | undefined>(undefined);
+  const [openPanel, setOpenPanel] = useState(false);
 
   const handleDialogOpen = () => {
     setOpen(true);
@@ -297,20 +300,49 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
             </TableContainer>
           </DialogContent>
           <DialogActions>
-            <Container
-              maxWidth="xs"
-              sx={{ display: 'flex', justifyContent: 'center' }}
-            >
-              <SingleButton
-                buttonText="close"
-                buttonType="button"
-                size="medium"
-                handleClick={handleDialogClose}
-                styleString="w-full"
-                padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
-                fontSize="16"
-              />
-            </Container>
+            {pathName === '/audience-home/live-events' ? (
+              <Container
+                maxWidth="xs"
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                }}
+              >
+                <SingleButton
+                  buttonText="close"
+                  buttonType="button"
+                  size="medium"
+                  styleString="w-full"
+                  padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
+                  fontSize="16"
+                  handleClick={handleDialogClose}
+                />
+                <SingleButton
+                  buttonText="live updates"
+                  buttonType="button"
+                  size="medium"
+                  styleString="w-full"
+                  padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
+                  handleClick={() => setOpenPanel(true)}
+                  fontSize="16"
+                />
+              </Container>
+            ) : (
+              <Container
+                maxWidth="xs"
+                sx={{ display: 'flex', justifyContent: 'center' }}
+              >
+                <SingleButton
+                  buttonText="close"
+                  buttonType="button"
+                  size="medium"
+                  handleClick={handleDialogClose}
+                  styleString="w-full"
+                  padding={{ left: 0, top: 3, right: 0, bottom: 3 }}
+                  fontSize="16"
+                />
+              </Container>
+            )}
           </DialogActions>
         </Dialog>
       )}
@@ -443,6 +475,11 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
           </DialogActions>
         </Dialog>
       )}
+      <LiveUpdatesPanel
+        open={openPanel}
+        setOpen={setOpenPanel}
+        eventName={props.eventName}
+      />
     </Paper>
   );
 }

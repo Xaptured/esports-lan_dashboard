@@ -452,3 +452,36 @@ export const fetchAdvertisementDetails = async () => {
     }
   }
 };
+
+export const fetchLiveUpdates = async (
+  category: string,
+  limit: number,
+  eventName: string
+) => {
+  try {
+    const response = await axios.get(
+      `/api/live-updates?category=${category}&limit=${limit}&tournamentName=${eventName}`
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody?.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wrong. Please try again later.',
+      } as Response;
+    }
+  }
+};
