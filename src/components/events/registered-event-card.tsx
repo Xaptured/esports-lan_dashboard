@@ -35,6 +35,7 @@ import { prepareTeams, validateTeamArray } from '@/utilities/utils';
 import { saveTeams } from '@/services/postInternalAPI';
 import LiveUpdatesPanel from '../live-updates-panel/LiveUpdatesPanel';
 import { usePathname } from 'next/navigation';
+import { TournamentImagesGallery } from '../gallery/tournament-images-gallery';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -60,6 +61,7 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
   const [addParticipantOpen, setAddParticipantOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
   const [snackBar, setSnackBar] = useState<string | undefined>(undefined);
+  const [showGallery, setShowGallery] = useState(false);
   const [openPanel, setOpenPanel] = useState(false);
 
   const handleDialogOpen = () => {
@@ -127,6 +129,22 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
     setTeams((prevTeams) => prevTeams?.filter((_, i) => i !== index));
   };
 
+  if (showGallery) {
+    return (
+      <Paper elevation={0} sx={{ padding: '2%' }}>
+        <Box sx={{ mb: 2 }}>
+          <SingleButton
+            buttonText="Back to Event"
+            buttonType="button"
+            size="medium"
+            handleClick={() => setShowGallery(false)}
+          />
+        </Box>
+        <TournamentImagesGallery tournamentName={props.eventName} />
+      </Paper>
+    );
+  }
+
   return (
     <Paper
       sx={{
@@ -155,6 +173,12 @@ export default function RegisteredEventCard(props: RegisteredEventCardProps) {
           buttonType="button"
           size="medium"
           handleClick={handleShowDetails}
+        />
+        <SingleButton
+          buttonText="show gallery"
+          buttonType="button"
+          size="medium"
+          handleClick={() => setShowGallery(true)}
         />
         <Snackbar
           open={snackBar ? true : false}
