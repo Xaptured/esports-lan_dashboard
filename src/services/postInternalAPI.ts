@@ -531,3 +531,34 @@ export const saveLiveUpdate = async (data: LiveUpdatesType) => {
     }
   }
 };
+
+export const saveTournamentImages = async (data: FormData) => {
+  try {
+    const response = await axios.post('/api/organizer/save-images', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: 'Successfully saved',
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody?.message || 'Failed to save',
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wromg. Please try again later.',
+      } as Response;
+    }
+  }
+};
