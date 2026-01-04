@@ -16,6 +16,10 @@ export default function SingleButton(props: SingleButtonProps) {
       backgroundColor:
         props.hoverBackgroundColor || theme.palette.primary.light,
     },
+    '&:disabled': {
+      backgroundColor: theme.palette.action.disabledBackground,
+      color: theme.palette.action.disabled,
+    },
   }));
   return (
     <ColorButton
@@ -24,6 +28,9 @@ export default function SingleButton(props: SingleButtonProps) {
       className={props.styleString}
       type={props.buttonType}
       onClick={props.handleClick}
+      startIcon={props.startIcon}
+      endIcon={props.endIcon}
+      disabled={props.disabled}
     >
       {props.buttonText}
     </ColorButton>

@@ -513,3 +513,61 @@ export const fetchImagesForTournament = async (tournamentName: string) => {
     }
   }
 };
+
+export const fetchStayLinks = async (eventName: string) => {
+  try {
+    const response = await axios.get(
+      `/api/booking/stay-links?eventName=${eventName}`
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody?.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wrong. Please try again later.',
+      } as Response;
+    }
+  }
+};
+
+export const fetchTravelLinks = async (eventName: string) => {
+  try {
+    const response = await axios.get(
+      `/api/booking/travel-links?eventName=${eventName}`
+    );
+    const { responseBody } = response.data;
+    return {
+      data: responseBody,
+      message: undefined,
+      errorMessage: undefined,
+    } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { errorBody } = error.response?.data;
+      return {
+        data: errorBody,
+        message: undefined,
+        errorMessage: errorBody?.message,
+      } as Response;
+    } else {
+      return {
+        data: undefined,
+        message: undefined,
+        errorMessage: 'Something went wrong. Please try again later.',
+      } as Response;
+    }
+  }
+};
