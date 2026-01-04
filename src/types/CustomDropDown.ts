@@ -6,4 +6,5 @@ export interface CustomDropdownProps
   placeholder: string;
   name: any;
   control: any;
+  options: { label: string; value: string | number }[];
 }

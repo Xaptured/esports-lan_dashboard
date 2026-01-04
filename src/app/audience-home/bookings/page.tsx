@@ -1,5 +1,9 @@
 import React from 'react';
+import BookingFeature from '@/components/bookings/booking-feature';
+import { cookies } from 'next/headers';
 
 export default function Bookings() {
-  return <div>Bookings</div>;
+  const cookieStore = cookies();
+  const email = cookieStore.get('email')?.value;
+  return <BookingFeature email={email} />;
 }

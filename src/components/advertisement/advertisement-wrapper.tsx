@@ -35,7 +35,7 @@ export default function AdvertisementWrapper({
         marginTop: '0%',
       }}
     >
-      {ads.map((ad) => (
+      {ads?.map((ad) => (
         <Grid item xl={4} lg={4} md={4}>
           <AdvertisementContent key={ad.advertiserName} ad={ad} />
         </Grid>

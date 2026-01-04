@@ -7,10 +7,18 @@ import { Select, MenuItem, FormHelperText, FormControl } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { useTheme } from '@mui/material';
 import { CustomDropdownProps } from '@/types/CustomDropDown';
-import { stateList } from '@/constants/stateList';
 
 const CustomDropdown = React.forwardRef<HTMLInputElement, CustomDropdownProps>(
-  ({ className, error, helperText, label, placeholder, name, control }) => {
+  ({
+    className,
+    error,
+    helperText,
+    label,
+    placeholder,
+    name,
+    control,
+    options,
+  }) => {
     const theme = useTheme();
     const inputTheme =
       theme.palette.mode === 'dark'
@@ -45,7 +53,7 @@ const CustomDropdown = React.forwardRef<HTMLInputElement, CustomDropdownProps>(
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
-        className="p-[2px] rounded-lg transition duration-300 group/input"
+        className="p-[2px] rounded-lg transition duration-300 group/input w-full"
       >
         <Controller
           name={name}
@@ -70,13 +78,33 @@ const CustomDropdown = React.forwardRef<HTMLInputElement, CustomDropdownProps>(
                 placeholder={placeholder}
                 {...field}
                 size="medium"
+                displayEmpty
+                renderValue={(selected) => {
+                  if (!selected) {
+                    return (
+                      <span className="text-neutral-400">{placeholder}</span>
+                    );
+                  }
+                  return selected;
+                }}
+                sx={{
+                  '&:before': { borderBottom: 'none' },
+                  '&:after': { borderBottom: 'none' },
+                  '&:hover:not(.Mui-disabled):before': {
+                    borderBottom: 'none',
+                  },
+                  color: 'inherit',
+                }}
               >
-                <MenuItem value="">
-                  <em>None</em>
+                <MenuItem disabled value="">
+                  <span className="text-neutral-400">{placeholder}</span>
                 </MenuItem>
-                {stateList.map((state) => (
-                  <MenuItem value={state}> {state}</MenuItem>
-                ))}
+                {options &&
+                  options.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
               </Select>
               {helperText && <FormHelperText>{helperText}</FormHelperText>}
             </FormControl>

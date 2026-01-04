@@ -19,4 +19,7 @@ export type SingleButtonProps = {
   styleString?: string;
   handleClick?: () => void;
   isLoading?: boolean;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+  disabled?: boolean;
 };

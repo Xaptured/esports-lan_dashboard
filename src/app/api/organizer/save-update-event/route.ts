@@ -22,10 +22,7 @@ export async function POST(request: NextRequest) {
       logger.error(`Error occurred while saving event.`);
       const statusCode = error.response?.status;
       const responseBody = error.response?.data;
-      return NextResponse.json(
-        { errorBody: responseBody },
-        { status: statusCode }
-      );
+      return NextResponse.json({ errorBody: responseBody }, { status: 500 });
     } else {
       const err = error as Error;
       logger.error(`Internal server error occurred while saving event.`);
